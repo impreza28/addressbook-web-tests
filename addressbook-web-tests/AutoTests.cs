@@ -11,12 +11,13 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class Test
+    public class Tests
     {
     private IWebDriver driver;
     private StringBuilder verificationErrors;
     private string baseURL;
     private bool acceptNextAlert = true;
+
 
     [SetUp]
     public void SetupTest()
@@ -28,15 +29,49 @@ namespace addressbook_web_tests
     }
 
     [Test]
-    public void ƒз2_—оздание_группы()
+    public void ƒз2и3_—оздание_группы()
         {
             OpenHomePage();
-            Login("admin","secret");
+            Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
-            FillGroupForm("a", "b", "c");
-            SubmitGroupCreation();
+            GroupData group = new GroupData("a");
+            group.Header = "c";
+            group.Footer = "b";
+            FillGroupForm(group);
+            SubmitCreation();
             ReturnToGroupsPage();
+        }
+
+    [Test]
+    public void ƒз4_—оздание_контакта()
+        {
+            OpenHomePage();
+            Login(new AccountData("admin", "secret"));
+            CreateNewContact();
+            ContactData contact = new ContactData("Firstname");
+            contact.Middlename = "";
+            contact.Lastname = "Lastname";
+            FillContactForm(contact);
+            SubmitCreation();
+            OpenLinkHomePage();
+        }
+
+        private void OpenLinkHomePage()
+        {   //переход по ссылке "home page" на главную страницу
+            driver.FindElement(By.LinkText("home page")).Click();
+        }
+
+        private void FillContactForm(ContactData contact)
+        {   //заполнение данных нового контакта
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+        }
+
+        private void CreateNewContact()
+        {   //переход на форму добавление нового контакта
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
         private void ReturnToGroupsPage()
@@ -45,18 +80,18 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("group page")).Click();
         }
 
-        private void SubmitGroupCreation()
+        private void SubmitCreation()
         {
-            //подтверждение создани€ новой группы
+            //подтверждение создани€ 
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void FillGroupForm(string name,string header,string footer)
+        private void FillGroupForm(GroupData group)
         {
             //заполнение данных новой группы
-            driver.FindElement(By.Name("group_name")).SendKeys(name);
-            driver.FindElement(By.Name("group_header")).SendKeys(header);
-            driver.FindElement(By.Name("group_footer")).SendKeys(footer);
+            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
+            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
         }
 
         private void InitGroupCreation()
@@ -71,16 +106,16 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        private void Login(string username,string password)
+        private void Login(AccountData account)
         {    //авторизаци€: логин+пароль
-            driver.FindElement(By.Name("user")).SendKeys(username);
-            driver.FindElement(By.Name("pass")).SendKeys(password);
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
         private void OpenHomePage()
         {
-            //переход на главную страницу
+            //открытие сайта addressbook
             driver.Navigate().GoToUrl(baseURL);
         }
 
