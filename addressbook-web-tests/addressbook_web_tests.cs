@@ -31,7 +31,7 @@ namespace addressbook_web_tests
     public void Дз2_Создание_группы()
         {
             OpenHomePage();
-            Login("admin","secret");
+            Login(new AccountData("admin", "secret");
             GoToGroupsPage();
             InitGroupCreation();
             FillGroupForm("a", "b", "c");
@@ -71,10 +71,10 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        private void Login(string username,string password)
+        private void Login(AccountData account)
         {    //авторизация: логин+пароль
-            driver.FindElement(By.Name("user")).SendKeys(username);
-            driver.FindElement(By.Name("pass")).SendKeys(password);
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
