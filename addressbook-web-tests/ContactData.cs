@@ -8,52 +8,52 @@ namespace addressbook_web_tests
 {
      class ContactData
     {
-        private string name;
-        private string header;
-        private string footer;
+        private string firstname;
+        private string middlename;
+        private string lastname;
 
-        public ContactData(string name, string header, string footer)
+        public ContactData(string firstname, string middlename, string lastname)
         {
-         this.name = name;
-         this.header = header = "";
-         this.footer = footer = "";
+         this.firstname = firstname;
+         this.middlename = middlename="";
+         this.lastname = lastname;
 
         }
-        public ContactData(string name)
+        public ContactData(string firstname)
         {
-            this.name = name;
+            this.firstname = firstname;
         }
-        public string Name
+        public string Firstname
         {
             get
             {
-                return name; 
+                return firstname; 
             }
             set
             {
-                 name=value;
+                firstname = value;
             }
         }
-        public string Header
+        public string Middlename
         {
             get
             {
-                return header;
+                return middlename;
             }
             set
             {
-                header = value;
+                middlename = value;
             }
         }
-        public string Footer
+        public string Lastname
         {
             get
             {
-                return footer;
+                return lastname;
             }
             set
             {
-                footer = value;
+                lastname = value;
             }
         }
     }

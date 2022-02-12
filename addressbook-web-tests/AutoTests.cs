@@ -29,7 +29,7 @@ namespace addressbook_web_tests
     }
 
     [Test]
-    public void Дз2_Создание_группы()
+    public void Дз2и3_Создание_группы()
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
@@ -44,12 +44,15 @@ namespace addressbook_web_tests
         }
 
     [Test]
-    public void Дз3_Создание_контакта()
+    public void Дз4_Создание_контакта()
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
             CreateNewContact();
-            FillContactForm();
+            ContactData contact = new ContactData("Firstname");
+            contact.Middlename = "";
+            contact.Lastname = "Lastname";
+            FillContactForm(contact);
             SubmitCreation();
             OpenLinkHomePage();
         }
@@ -59,11 +62,11 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("home page")).Click();
         }
 
-        private void FillContactForm()
+        private void FillContactForm(ContactData contact)
         {   //заполнение данных нового контакта
-            driver.FindElement(By.Name("firstname")).SendKeys("1");
-            driver.FindElement(By.Name("middlename")).SendKeys("2");
-            driver.FindElement(By.Name("lastname")).SendKeys("3");
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
         }
 
         private void CreateNewContact()
