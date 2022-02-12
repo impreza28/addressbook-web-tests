@@ -19,6 +19,10 @@ namespace addressbook_web_tests
          this.footer = footer = "";
 
         }
+        public GroupData(string name)
+        {
+            this.name = name;
+        }
         public string Name
         {
             get

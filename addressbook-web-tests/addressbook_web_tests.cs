@@ -18,6 +18,7 @@ namespace addressbook_web_tests
     private string baseURL;
     private bool acceptNextAlert = true;
 
+
     [SetUp]
     public void SetupTest()
     {
@@ -34,7 +35,10 @@ namespace addressbook_web_tests
             Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
-            FillGroupForm(new GroupData("a", "b", "c"));
+            GroupData group = new GroupData("a");
+            group.Header = "c";
+            group.Footer = "b";
+            FillGroupForm(group);
             SubmitGroupCreation();
             ReturnToGroupsPage();
         }
