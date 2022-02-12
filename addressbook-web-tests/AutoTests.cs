@@ -11,7 +11,7 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class Test
+    public class Tests
     {
     private IWebDriver driver;
     private StringBuilder verificationErrors;
@@ -39,8 +39,36 @@ namespace addressbook_web_tests
             group.Header = "c";
             group.Footer = "b";
             FillGroupForm(group);
-            SubmitGroupCreation();
+            SubmitCreation();
             ReturnToGroupsPage();
+        }
+
+    [Test]
+    public void Дз3_Создание_контакта()
+        {
+            OpenHomePage();
+            Login(new AccountData("admin", "secret"));
+            CreateNewContact();
+            FillContactForm();
+            SubmitCreation();
+            OpenLinkHomePage();
+        }
+
+        private void OpenLinkHomePage()
+        {   //переход по ссылке "home page" на главную страницу
+            driver.FindElement(By.LinkText("home page")).Click();
+        }
+
+        private void FillContactForm()
+        {   //заполнение данных нового контакта
+            driver.FindElement(By.Name("firstname")).SendKeys("1");
+            driver.FindElement(By.Name("middlename")).SendKeys("2");
+            driver.FindElement(By.Name("lastname")).SendKeys("3");
+        }
+
+        private void CreateNewContact()
+        {   //переход на форму добавление нового контакта
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
         private void ReturnToGroupsPage()
@@ -49,9 +77,9 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("group page")).Click();
         }
 
-        private void SubmitGroupCreation()
+        private void SubmitCreation()
         {
-            //подтверждение создания новой группы
+            //подтверждение создания 
             driver.FindElement(By.Name("submit")).Click();
         }
 
@@ -84,7 +112,7 @@ namespace addressbook_web_tests
 
         private void OpenHomePage()
         {
-            //переход на главную страницу
+            //открытие сайта addressbook
             driver.Navigate().GoToUrl(baseURL);
         }
 
