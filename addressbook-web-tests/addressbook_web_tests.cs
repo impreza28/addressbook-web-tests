@@ -29,28 +29,62 @@ namespace addressbook_web_tests
 
     [Test]
     public void Дз2_Создание_группы()
-    {
-            //переход на главную страницу
-        driver.Navigate().GoToUrl(baseURL);
-            //авторизация: логин+пароль
-        driver.FindElement(By.Name("user")).SendKeys("admin");
-        driver.FindElement(By.Name("pass")).SendKeys("secret");
-        driver.FindElement(By.XPath("//input[@value='Login']")).Click();
-            //переход на форму групп
-        driver.FindElement(By.LinkText("groups")).Click();
-            //создание новой группы
-        driver.FindElement(By.Name("new")).Click();
-            //заполнение данных новой группы
-        driver.FindElement(By.Name("group_name")).SendKeys("test1");
-        driver.FindElement(By.Name("group_header")).SendKeys("test1");
-        driver.FindElement(By.Name("group_footer")).SendKeys("test1");
-            //подтверждение создания новой группы
-        driver.FindElement(By.Name("submit")).Click();
-            //переход на форму групп
-        driver.FindElement(By.LinkText("group page")).Click();
+        {
+            OpenHomePage();
+            Login();
+            GoToGroupsPage();
+            InitGroupCreation();
+            FillGroupForm();
+            SubmitGroupCreation();
+            ReturnToGroupsPage();
+        }
 
-    }
-    private bool IsElementPresent(By by)
+        private void ReturnToGroupsPage()
+        {
+            //переход на форму групп
+            driver.FindElement(By.LinkText("group page")).Click();
+        }
+
+        private void SubmitGroupCreation()
+        {
+            //подтверждение создания новой группы
+            driver.FindElement(By.Name("submit")).Click();
+        }
+
+        private void FillGroupForm()
+        {
+            //заполнение данных новой группы
+            driver.FindElement(By.Name("group_name")).SendKeys("test1");
+            driver.FindElement(By.Name("group_header")).SendKeys("test1");
+            driver.FindElement(By.Name("group_footer")).SendKeys("test1");
+        }
+
+        private void InitGroupCreation()
+        {
+            //создание новой группы
+            driver.FindElement(By.Name("new")).Click();
+        }
+
+        private void GoToGroupsPage()
+        {
+            //переход на форму групп
+            driver.FindElement(By.LinkText("groups")).Click();
+        }
+
+        private void Login()
+        {    //авторизация: логин+пароль
+            driver.FindElement(By.Name("user")).SendKeys("admin");
+            driver.FindElement(By.Name("pass")).SendKeys("secret");
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+        }
+
+        private void OpenHomePage()
+        {
+            //переход на главную страницу
+            driver.Navigate().GoToUrl(baseURL);
+        }
+
+        private bool IsElementPresent(By by)
     {
         try
         {
