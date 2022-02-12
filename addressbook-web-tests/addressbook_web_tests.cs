@@ -30,19 +30,24 @@ namespace addressbook_web_tests
     [Test]
     public void Дз2_Создание_группы()
     {
+            //переход на главную страницу
         driver.Navigate().GoToUrl(baseURL);
+            //авторизация: логин+пароль
         driver.FindElement(By.Name("user")).SendKeys("admin");
         driver.FindElement(By.Name("pass")).SendKeys("secret");
         driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+            //переход на форму групп
         driver.FindElement(By.LinkText("groups")).Click();
+            //создание новой группы
         driver.FindElement(By.Name("new")).Click();
+            //заполнение данных новой группы
         driver.FindElement(By.Name("group_name")).SendKeys("test1");
         driver.FindElement(By.Name("group_header")).SendKeys("test1");
         driver.FindElement(By.Name("group_footer")).SendKeys("test1");
+            //подтверждение создания новой группы
         driver.FindElement(By.Name("submit")).Click();
+            //переход на форму групп
         driver.FindElement(By.LinkText("group page")).Click();
-        driver.FindElement(By.LinkText("Logout")).Click();
-        driver.Quit();
 
     }
     private bool IsElementPresent(By by)
