@@ -31,10 +31,10 @@ namespace addressbook_web_tests
     public void ƒз2_—оздание_группы()
         {
             OpenHomePage();
-            Login(new AccountData("admin", "secret");
+            Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
-            FillGroupForm("a", "b", "c");
+            FillGroupForm(new GroupData("a", "b", "c"));
             SubmitGroupCreation();
             ReturnToGroupsPage();
         }
@@ -51,12 +51,12 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void FillGroupForm(string name,string header,string footer)
+        private void FillGroupForm(GroupData group)
         {
             //заполнение данных новой группы
-            driver.FindElement(By.Name("group_name")).SendKeys(name);
-            driver.FindElement(By.Name("group_header")).SendKeys(header);
-            driver.FindElement(By.Name("group_footer")).SendKeys(footer);
+            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
+            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
         }
 
         private void InitGroupCreation()
