@@ -27,12 +27,17 @@ namespace addressbook_web_tests
 
         public ApplicationManager() 
         {
+            driver = new ChromeDriver();
+            //driver = new FirefoxDriver();
+            baseURL = "http://localhost/addressbook/";
             loginhelper = new LoginHelper(driver);
             navigationhelper = new NavigationHelper(driver,baseURL);
             contacthelper = new ContactHelper(driver);
             grouphelper = new GroupHelper(driver);
+
         }
 
+        //закрытие браузера
         public void Stop()
         {
             try
@@ -41,10 +46,34 @@ namespace addressbook_web_tests
             }
             catch (Exception) { }
         }
-        public LoginHelper auth { get; set; }
-        public NavigationHelper navigation { get; set;}
-        public ContactHelper contacts { get { return contacts; } }
-        public GroupHelper groups { get { return groups; } }
+        public LoginHelper Auth 
+        {
+            get 
+            { 
+                return loginhelper; 
+            }
+        }
+        public NavigationHelper Navigator
+        {
+           get 
+            { 
+                return navigationhelper; 
+            }
+        }
+        public ContactHelper Contacts 
+        {
+            get 
+            { 
+                return contacthelper; 
+            } 
+        }
+        public GroupHelper Groups 
+        { 
+            get 
+            {
+                return grouphelper;
+            }
+        }
 
     }
 }

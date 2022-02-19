@@ -16,8 +16,9 @@ namespace addressbook_web_tests
 {
     public class LoginHelper: HelperBase
     {
-       public   LoginHelper(IWebDriver driver) : base(driver)
-        { }
+        public LoginHelper(IWebDriver driver) : base(driver) 
+        { 
+        }
 
         public void LoginAdmin(AccountData account)
         {    //авторизация: логин+пароль

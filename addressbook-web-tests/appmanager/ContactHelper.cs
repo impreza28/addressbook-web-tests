@@ -20,20 +20,23 @@ namespace addressbook_web_tests
             this.driver = driver;
         }
 
-        public void InitContactCreation()
+        public ContactHelper InitContactCreation()
         {   //инициация создания нового ноктакта
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
-        public void FillContactForm(ContactData contact)
+        public ContactHelper FillContactForm(ContactData contact)
         {   //заполнение формы нового ноктакта
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
             driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            return this;
         }
-        public void SubmitCreationContact()
+        public ContactHelper SubmitCreationContact()
         {
             //подтверждение создания 
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
 

@@ -17,16 +17,15 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateGroup()
         {
-            app.navigation.OpenHomePage();
-            app.auth.LoginAdmin(new AccountData("admin", "secret"));
-            app.navigation.GoToGroupsPage();
-            app.groups.InitGroupCreation();
+            app.Navigator.GoToGroupsPage();
+            app.Groups.InitGroupCreation();
             GroupData group = new GroupData("a");
             group.Header = "c";
             group.Footer = "b";
-            app.groups.FillGroupForm(group);
-            app.groups.SubmitCreationGroup();
-            app.navigation.ReturnToGroupsPage();
+            app.Groups 
+                .FillGroupForm(group)
+                .SubmitCreationGroup();
+            app.Navigator.ReturnToGroupsPage();
         }
 
 }
