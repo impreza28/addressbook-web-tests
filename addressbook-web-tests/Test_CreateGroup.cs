@@ -18,16 +18,16 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateGroup()
         {
-            OpenHomePage();
-            LoginAdmin(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
+            navigationhelper.OpenHomePage();
+            loginhelper.LoginAdmin(new AccountData("admin", "secret"));
+            navigationhelper.GoToGroupsPage();
+            grouphelper.InitGroupCreation();
             GroupData group = new GroupData("a");
             group.Header = "c";
             group.Footer = "b";
-            FillGroupForm(group);
-            SubmitCreation();
-            ReturnToGroupsPage();
+            grouphelper.FillGroupForm(group);
+            grouphelper.SubmitCreationGroup();
+            navigationhelper.ReturnToGroupsPage();
         }
 
 }

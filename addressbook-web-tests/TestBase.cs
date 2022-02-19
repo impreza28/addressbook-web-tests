@@ -20,6 +20,12 @@ namespace addressbook_web_tests
         protected string baseURL;
         private bool acceptNextAlert = true;
 
+        protected LoginHelper loginhelper;
+        protected NavigationHelper navigationhelper;
+        protected ContactHelper contacthelper;
+        protected GroupHelper grouphelper;
+
+
 
         [SetUp]
         public void SetupTest()
@@ -28,67 +34,10 @@ namespace addressbook_web_tests
             //driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
             verificationErrors = new StringBuilder();
-        }
-
-
-        protected void OpenLinkHomePage()
-        {   //переход по ссылке "home page" на главную страницу
-            driver.FindElement(By.LinkText("home page")).Click();
-        }
-
-        protected void CreateNewContact()
-        {   //переход на форму добавление нового контакта
-            driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        protected void ReturnToGroupsPage()
-        {
-            //переход на форму групп
-            driver.FindElement(By.LinkText("group page")).Click();
-        }
-
-        protected void SubmitCreation()
-        {
-            //подтверждение создания 
-            driver.FindElement(By.Name("submit")).Click();
-        }
-
-        protected void InitGroupCreation()
-        {
-            //создание новой группы
-            driver.FindElement(By.Name("new")).Click();
-        }
-
-        protected void GoToGroupsPage()
-        {
-            //переход на форму групп
-            driver.FindElement(By.LinkText("groups")).Click();
-        }
-
-        protected void LoginAdmin(AccountData account)
-        {    //авторизация: логин+пароль
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
-        }
-        protected void FillContactForm(ContactData contact)
-        {   //заполнение формы нового ноктакта
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
-        }
-
-        protected void FillGroupForm(GroupData group)
-        {
-            //заполнение формы новой группы
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-        }
-        protected void OpenHomePage()
-        {
-            //открытие сайта addressbook
-            driver.Navigate().GoToUrl(baseURL);
+            loginhelper = new LoginHelper(driver);
+            navigationhelper = new NavigationHelper(driver, baseURL);
+            contacthelper = new ContactHelper(driver);
+            grouphelper = new GroupHelper(driver);
         }
     }
 }
