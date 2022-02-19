@@ -14,20 +14,18 @@ namespace addressbook_web_tests
     public class CreateGroup: TestBase
     {
 
-
     [Test]
     public void Test_CreateGroup()
         {
-            OpenHomePage();
-            LoginAdmin(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
+            app.Navigator.GoToGroupsPage();
+            app.Groups.InitGroupCreation();
             GroupData group = new GroupData("a");
             group.Header = "c";
             group.Footer = "b";
-            FillGroupForm(group);
-            SubmitCreation();
-            ReturnToGroupsPage();
+            app.Groups 
+                .FillGroupForm(group)
+                .SubmitCreationGroup();
+            app.Navigator.ReturnToGroupsPage();
         }
 
 }
