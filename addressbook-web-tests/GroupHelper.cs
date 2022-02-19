@@ -7,11 +7,11 @@ using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
-    public class GroupHelper
+    public class GroupHelper: HelperBase
     {
-        private IWebDriver driver;
 
         public GroupHelper(IWebDriver driver)
+                    : base(driver)
         {
             this.driver = driver;
         }

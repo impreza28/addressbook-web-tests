@@ -14,14 +14,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class LoginHelper
+    public class LoginHelper: HelperBase
     {
-        private IWebDriver driver;
+       public   LoginHelper(IWebDriver driver) : base(driver)
+        { }
 
-       public   LoginHelper(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
         public void LoginAdmin(AccountData account)
         {    //авторизация: логин+пароль
             driver.FindElement(By.Name("user")).SendKeys(account.Username);
