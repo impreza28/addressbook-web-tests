@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="addressbook_web_tests.TestBase">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAQAIAQEAARAAAAAAACAAAAJKAAAAAAAAAAAACA=</HashCode>
+      <FileName>TestBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="addressbook_web_tests.CreateGroup">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Test_CreateGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="addressbook_web_tests.CreateContact">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Test_CreateContact.cs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
