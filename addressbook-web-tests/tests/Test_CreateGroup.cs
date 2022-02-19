@@ -14,20 +14,19 @@ namespace addressbook_web_tests
     public class CreateGroup: TestBase
     {
 
-
     [Test]
     public void Test_CreateGroup()
         {
-            navigationhelper.OpenHomePage();
-            loginhelper.LoginAdmin(new AccountData("admin", "secret"));
-            navigationhelper.GoToGroupsPage();
-            grouphelper.InitGroupCreation();
+            app.navigation.OpenHomePage();
+            app.auth.LoginAdmin(new AccountData("admin", "secret"));
+            app.navigation.GoToGroupsPage();
+            app.groups.InitGroupCreation();
             GroupData group = new GroupData("a");
             group.Header = "c";
             group.Footer = "b";
-            grouphelper.FillGroupForm(group);
-            grouphelper.SubmitCreationGroup();
-            navigationhelper.ReturnToGroupsPage();
+            app.groups.FillGroupForm(group);
+            app.groups.SubmitCreationGroup();
+            app.navigation.ReturnToGroupsPage();
         }
 
 }

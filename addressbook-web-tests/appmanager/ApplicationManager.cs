@@ -13,31 +13,38 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class TestBase
+    public class ApplicationManager
     {
+
         protected IWebDriver driver;
-        private StringBuilder verificationErrors;
         protected string baseURL;
-        private bool acceptNextAlert = true;
+
 
         protected LoginHelper loginhelper;
         protected NavigationHelper navigationhelper;
         protected ContactHelper contacthelper;
         protected GroupHelper grouphelper;
 
-
-
-        [SetUp]
-        public void SetupTest()
+        public ApplicationManager() 
         {
-            driver = new ChromeDriver();
-            //driver = new FirefoxDriver();
-            baseURL = "http://localhost/addressbook/";
-            verificationErrors = new StringBuilder();
             loginhelper = new LoginHelper(driver);
-            navigationhelper = new NavigationHelper(driver, baseURL);
+            navigationhelper = new NavigationHelper(driver,baseURL);
             contacthelper = new ContactHelper(driver);
             grouphelper = new GroupHelper(driver);
         }
+
+        public void Stop()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception) { }
+        }
+        public LoginHelper auth { get; set; }
+        public NavigationHelper navigation { get; set;}
+        public ContactHelper contacts { get { return contacts; } }
+        public GroupHelper groups { get { return groups; } }
+
     }
 }

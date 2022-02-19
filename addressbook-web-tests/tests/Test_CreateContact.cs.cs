@@ -17,15 +17,15 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateContact()
         {
-            navigationhelper.OpenHomePage();
-            loginhelper.LoginAdmin(new AccountData("admin", "secret"));
-            contacthelper.InitContactCreation();
+            app.navigation.OpenHomePage();
+            app.auth.LoginAdmin(new AccountData("admin", "secret"));
+            app.contacts.InitContactCreation();
             ContactData contact = new ContactData("Firstname");
             contact.Middlename = "Middlename";
             contact.Lastname = "Lastname";
-            contacthelper.FillContactForm(contact);
-            contacthelper.SubmitCreationContact();
-            navigationhelper.OpenLinkHomePage();
+            app.contacts.FillContactForm(contact);
+            app.contacts.SubmitCreationContact();
+            app.navigation.OpenLinkHomePage();
         }
 
 }
