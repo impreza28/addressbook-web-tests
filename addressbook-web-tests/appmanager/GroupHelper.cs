@@ -15,12 +15,6 @@ namespace addressbook_web_tests
 
         }
 
-        public GroupHelper InitGroupCreation()
-        {
-            //инициация создания новой группы
-            driver.FindElement(By.Name("new")).Click();
-            return this;
-        }
 
         public GroupHelper CreateGroup(GroupData group)
         {// создание новой группы
@@ -30,12 +24,62 @@ namespace addressbook_web_tests
             SubmitCreationGroup();
             return this;
         }
-        public GroupHelper RemoveGroup()
+
+        public GroupHelper ModifyGroup(GroupData group)
         {
+            SelectgroupTest();
+            InitGroupModify();
+            EditGroupForm(group);
+            SubmitUpdateGroup();
+            manager.Navigator.GoToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper EditGroupForm(GroupData group)
+        {
+            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
+            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            return this;
+        }
+
+        public GroupHelper SelectgroupTest()
+        {//выбор группы Test
+            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+            return this;
+        }
+
+        public GroupHelper SubmitUpdateGroup()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public GroupHelper InitGroupModify()
+        { //инициация редактирования группы
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
+        public GroupHelper RemoveGroupTest()
+        {//удаление группы
             manager.Navigator.GoToGroupsPage();
             driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+            InitRemoveGroup();
+            manager.Navigator.GoToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper InitRemoveGroup()
+        {// нажать "Удалить группы"
             driver.FindElement(By.Name("delete")).Click();
-            driver.FindElement(By.LinkText("group page")).Click();
+            return this;
+        }
+
+        public GroupHelper InitGroupCreation()
+        {
+            //инициация создания новой группы
+            driver.FindElement(By.Name("new")).Click();
             return this;
         }
 
