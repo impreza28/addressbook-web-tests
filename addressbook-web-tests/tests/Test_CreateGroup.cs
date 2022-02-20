@@ -18,15 +18,24 @@ namespace addressbook_web_tests
     public void Test_CreateGroup()
         {
             app.Navigator.GoToGroupsPage();
-            app.Groups.InitGroupCreation();
             GroupData group = new GroupData("a");
             group.Header = "c";
             group.Footer = "b";
-            app.Groups 
-                .FillGroupForm(group)
-                .SubmitCreationGroup();
+            app.Groups.CreateGroup(group);
             app.Navigator.ReturnToGroupsPage();
         }
 
-}
+        [Test]
+        // тест-кейс создания группы с пустыми параметрами
+        public void Test_EmptyCreateGroup()
+        {
+            GroupData group = new GroupData("");
+            group.Header = "";
+            group.Footer = "";
+            app.Groups.CreateGroup(group);
+            app.Navigator.ReturnToGroupsPage();
+        }
+
+
+    }
 }

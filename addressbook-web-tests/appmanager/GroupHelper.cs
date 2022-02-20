@@ -10,14 +10,24 @@ namespace addressbook_web_tests
     public class GroupHelper: HelperBase
     {
 
-        public GroupHelper(IWebDriver driver): base(driver)
+        public GroupHelper(ApplicationManager manager): base(manager)
         {
+
         }
 
         public GroupHelper InitGroupCreation()
         {
-            //создание новой группы
+            //инициация создания новой группы
             driver.FindElement(By.Name("new")).Click();
+            return this;
+        }
+
+        public GroupHelper CreateGroup(GroupData group)
+        {// создание новой группы
+            manager.Navigator.GoToGroupsPage();
+            InitGroupCreation();
+            FillGroupForm(group);
+            SubmitCreationGroup();
             return this;
         }
 
@@ -36,6 +46,7 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
+       
 
     }
 }
