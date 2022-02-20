@@ -30,11 +30,18 @@ namespace addressbook_web_tests
             driver = new ChromeDriver();
             //driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
-            loginhelper = new LoginHelper(driver);
-            navigationhelper = new NavigationHelper(driver,baseURL);
-            contacthelper = new ContactHelper(driver);
-            grouphelper = new GroupHelper(driver);
 
+            loginhelper = new LoginHelper(this);
+            navigationhelper = new NavigationHelper(this, baseURL);
+            contacthelper = new ContactHelper(this);
+            grouphelper = new GroupHelper(this);
+
+        }
+
+
+        public IWebDriver Driver 
+        {
+            get { return driver; }
         }
 
         //закрытие браузера
@@ -74,6 +81,11 @@ namespace addressbook_web_tests
                 return grouphelper;
             }
         }
+
+        // public string get_baseURL()
+        // { 
+        //   return baseURL;
+        // }
 
     }
 }

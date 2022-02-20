@@ -13,11 +13,49 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class ContactHelper: HelperBase
+    public class ContactHelper : HelperBase
     {
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {
-            this.driver = driver;
+        }
+
+        public ContactHelper CreateContact(ContactData contact)
+        {// создание нового контакта
+            manager.Contacts.InitContactCreation()
+                .FillContactForm(contact)
+                .SubmitCreationContact();
+            return this;
+        }
+
+        public ContactHelper ModifyContact(ContactData contact)
+        {
+            InitModifyContact();
+            FillContactForm(contact);
+            //driver.FindElement(By.Name("firstname")).SendKeys("Test1");
+            //driver.FindElement(By.Name("middlename")).SendKeys("Test1");
+            //driver.FindElement(By.Name("lastname")).SendKeys("Test1");
+            SubmitUpdateContact();
+            return this;
+        }
+
+        public ContactHelper SubmitUpdateContact()
+        {//подтверждение изменепния контакта
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitModifyContact()
+        {//инициация изменения контакта
+            driver.FindElement(By.XPath("(//img[@alt=\'Edit\'])[1]")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+        { //удаление контакта Test
+            SelectContactTest();
+            InitContactDelete();
+            AcceptContactDelete();
+            return this;
         }
 
         public ContactHelper InitContactCreation()
@@ -25,6 +63,25 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
+
+        public ContactHelper SelectContactTest()
+        {//выбор контакта Test
+            driver.FindElement(By.XPath("//input[@title=\'Select (Test Test)\']")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactDelete()
+        {// инициация удаления контакта
+            driver.FindElement(By.XPath("//input[@value=\'Delete\']")).Click();
+            return this;
+        }
+
+        public ContactHelper AcceptContactDelete()
+        {//подтверждение удаления контакта
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
         public ContactHelper FillContactForm(ContactData contact)
         {   //заполнение формы нового ноктакта
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
