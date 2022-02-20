@@ -30,7 +30,14 @@ namespace addressbook_web_tests
             SubmitCreationGroup();
             return this;
         }
-
+        public GroupHelper RemoveGroup()
+        {
+            manager.Navigator.GoToGroupsPage();
+            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+            driver.FindElement(By.Name("delete")).Click();
+            driver.FindElement(By.LinkText("group page")).Click();
+            return this;
+        }
 
         public GroupHelper FillGroupForm(GroupData group)
         {

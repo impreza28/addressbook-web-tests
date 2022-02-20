@@ -17,7 +17,6 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateGroup()
         {
-            app.Navigator.GoToGroupsPage();
             GroupData group = new GroupData("a");
             group.Header = "c";
             group.Footer = "b";
