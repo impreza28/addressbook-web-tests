@@ -26,8 +26,8 @@ namespace addressbook_web_tests
         }
 
         public GroupHelper ModifyGroup(GroupData group)
-        {
-            SelectgroupTest();
+        {// изменение группы
+            SelectGroupTest();
             InitGroupModify();
             EditGroupForm(group);
             SubmitUpdateGroup();
@@ -36,28 +36,10 @@ namespace addressbook_web_tests
         }
 
         public GroupHelper EditGroupForm(GroupData group)
-        {
+        {//изменение данных группы
             driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
             driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-            return this;
-        }
-
-        public GroupHelper SelectgroupTest()
-        {//выбор группы Test
-            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
-            return this;
-        }
-
-        public GroupHelper SubmitUpdateGroup()
-        {
-            driver.FindElement(By.Name("update")).Click();
-            return this;
-        }
-
-        public GroupHelper InitGroupModify()
-        { //инициация редактирования группы
-            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
 
@@ -67,6 +49,24 @@ namespace addressbook_web_tests
             driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
             InitRemoveGroup();
             manager.Navigator.GoToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper SelectGroupTest()
+        {//выбор группы Test
+            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+            return this;
+        }
+
+        public GroupHelper SubmitUpdateGroup()
+        {// подтверждение изменения группы
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public GroupHelper InitGroupModify()
+        { //инициация редактирования группы
+            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
 

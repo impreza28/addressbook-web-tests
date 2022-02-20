@@ -24,6 +24,33 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
+
+        public ContactHelper RemoveContactTest()
+        {
+            SelectContactTest();
+            InitContactDelete();
+            AcceptContactDelete();
+            return this;
+        }
+
+        public ContactHelper SelectContactTest()
+        {//выбор контакта Test
+            driver.FindElement(By.XPath("//input[@title=\'Select (Test Test)\']")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactDelete()
+        {// инициация удаления контакта
+            driver.FindElement(By.XPath("//input[@value=\'Delete\']")).Click();
+            return this;
+        }
+
+        public ContactHelper AcceptContactDelete()
+        {//подтверждение удаления контакта
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
         public ContactHelper FillContactForm(ContactData contact)
         {   //заполнение формы нового ноктакта
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);

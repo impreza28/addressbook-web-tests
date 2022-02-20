@@ -20,10 +20,10 @@ namespace addressbook_web_tests
             GroupData group = new GroupData("Test");
             group.Header = "Test";
             group.Footer = "Test";
-            app.Groups.CreateGroup(group); 
+            app.Groups.CreateGroup(group);  //создание группы Test
             app.Navigator.ReturnToGroupsPage();
 
-            app.Groups.RemoveGroupTest();
+            app.Groups.RemoveGroupTest(); //удаление группы Test
         }
 
     }
