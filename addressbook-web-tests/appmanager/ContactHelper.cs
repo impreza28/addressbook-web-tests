@@ -13,7 +13,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class ContactHelper: HelperBase
+    public class ContactHelper : HelperBase
     {
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
@@ -38,6 +38,12 @@ namespace addressbook_web_tests
             return this;
         }
 
-
+        public ContactHelper CreateContact(ContactData contact)
+        {// создание нового контакта
+            manager.Contacts.InitContactCreation()
+                .FillContactForm(contact)
+                .SubmitCreationContact();
+            return this;
+        }
     }
 }

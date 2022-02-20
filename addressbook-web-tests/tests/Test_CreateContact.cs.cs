@@ -17,13 +17,10 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateContact()
         {
-            app.Contacts.InitContactCreation();
             ContactData contact = new ContactData("Firstname");
             contact.Middlename = "Middlename";
             contact.Lastname = "Lastname";
-            app.Contacts
-                .FillContactForm(contact)
-                .SubmitCreationContact();
+            app.Contacts.CreateContact(contact);
             app.Navigator.OpenLinkHomePage();
         }
 
