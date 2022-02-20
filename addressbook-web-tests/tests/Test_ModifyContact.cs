@@ -11,20 +11,18 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class RemoveContact : TestBase
+    public class ModifyContact : TestBase
     {
 
     [Test]
-    public void Test_RemoveContact()
+    public void Test_ModifyContact()
         {
-            ContactData contact = new ContactData("Test");
-            contact.Middlename = "Test";
-            contact.Lastname = "Test";
-            app.Contacts.CreateContact(contact);  //создание контакта Test
+            ContactData contact = new ContactData("Test1");
+            contact.Middlename = "Test1";
+            contact.Lastname = "Test1";
+            app.Contacts.ModifyContact(contact); 
 
             app.Navigator.OpenLinkHomePage();
-
-            app.Contacts.RemoveContact(); //удаление контакта Test
         }
 
     }

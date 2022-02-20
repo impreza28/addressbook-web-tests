@@ -19,17 +19,48 @@ namespace addressbook_web_tests
         {
         }
 
-        public ContactHelper InitContactCreation()
-        {   //инициация создания нового ноктакта
-            driver.FindElement(By.LinkText("add new")).Click();
+        public ContactHelper CreateContact(ContactData contact)
+        {// создание нового контакта
+            manager.Contacts.InitContactCreation()
+                .FillContactForm(contact)
+                .SubmitCreationContact();
             return this;
         }
 
-        public ContactHelper RemoveContactTest()
+        public ContactHelper ModifyContact(ContactData contact)
         {
+            InitModifyContact();
+            FillContactForm(contact);
+            //driver.FindElement(By.Name("firstname")).SendKeys("Test1");
+            //driver.FindElement(By.Name("middlename")).SendKeys("Test1");
+            //driver.FindElement(By.Name("lastname")).SendKeys("Test1");
+            SubmitUpdateContact();
+            return this;
+        }
+
+        public ContactHelper SubmitUpdateContact()
+        {//подтверждение изменепния контакта
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitModifyContact()
+        {//инициация изменения контакта
+            driver.FindElement(By.XPath("(//img[@alt=\'Edit\'])[1]")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+        { //удаление контакта Test
             SelectContactTest();
             InitContactDelete();
             AcceptContactDelete();
+            return this;
+        }
+
+        public ContactHelper InitContactCreation()
+        {   //инициация создания нового ноктакта
+            driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
 
@@ -65,12 +96,6 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public ContactHelper CreateContact(ContactData contact)
-        {// создание нового контакта
-            manager.Contacts.InitContactCreation()
-                .FillContactForm(contact)
-                .SubmitCreationContact();
-            return this;
-        }
+
     }
 }

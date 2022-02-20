@@ -29,13 +29,13 @@ namespace addressbook_web_tests
         {// изменение группы
             SelectGroupTest();
             InitGroupModify();
-            EditGroupForm(group);
+            ModifyGroupForm(group);
             SubmitUpdateGroup();
             manager.Navigator.GoToGroupsPage();
             return this;
         }
 
-        public GroupHelper EditGroupForm(GroupData group)
+        public GroupHelper ModifyGroupForm(GroupData group)
         {//изменение данных группы
             driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
             driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
