@@ -38,7 +38,12 @@ namespace addressbook_web_tests
 
         public void Logout()
         {    //выход из профиля
-            driver.FindElement(By.LinkText("Logout")).Click();
+            if (IsLoggedIn())   
+            { 
+                driver.FindElement(By.LinkText("Logout")).Click(); 
+            }
+
+
         }
         public bool IsLoggedIn()
         {    //проверка отображения элемента logout
