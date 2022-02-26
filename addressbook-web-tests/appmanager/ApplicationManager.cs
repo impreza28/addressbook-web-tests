@@ -42,6 +42,7 @@ namespace addressbook_web_tests
 
         }
 
+        //деструктор для остановки браузера
         ~ApplicationManager() 
         {
             try
@@ -55,7 +56,10 @@ namespace addressbook_web_tests
         {
             if (! app.IsValueCreated) 
             {
-                app.Value = new ApplicationManager();
+                ApplicationManager newInctance = new ApplicationManager();
+
+                newInctance.Navigator.OpenHomePage();
+                app.Value = newInctance;
             }
             return app.Value;
         }

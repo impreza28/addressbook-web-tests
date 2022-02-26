@@ -13,21 +13,16 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    [SetUpFixture]
-    public class TestSuiteFixture
+    public class AuthTestBase: TestBase
     {
-        public static ApplicationManager app;
-
-        [OneTimeSetUp]
-        public void InitApplicationManager()
+        [SetUp]
+        public void SetupLogin()
         {
-            //ApplicationManager 
-            //app = ApplicationManager.GetInstance();
-            app=new ApplicationManager();
-
-            app.Navigator.OpenHomePage();
+            // app = TestSuiteFixture.app;
             app.Auth.Login(new AccountData("admin", "secret"));
+
+            //app.Navigator.OpenHomePage();
+            //app.Auth.Login(new AccountData("admin", "secret"));
         }
-  
     }
 }

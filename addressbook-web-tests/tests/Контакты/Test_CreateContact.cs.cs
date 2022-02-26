@@ -11,19 +11,19 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class ModifyContact : TestBase
+    public class CreateContact: AuthTestBase
     {
 
     [Test]
-    public void Test_ModifyContact()
+    public void Test_CreateContact()
         {
-            ContactData contact = new ContactData("Test1");
-            contact.Middlename = "Test1";
-            contact.Lastname = "Test1";
-            app.Contacts.ModifyContact(contact); 
+            ContactData contact = new ContactData("Firstname");
+            contact.Middlename = "Middlename";
+            contact.Lastname = "Lastname";
 
+            app.Contacts.CreateContact(contact);
             app.Navigator.OpenLinkHomePage();
         }
 
-    }
+}
 }
