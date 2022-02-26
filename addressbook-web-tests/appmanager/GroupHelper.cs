@@ -37,11 +37,13 @@ namespace addressbook_web_tests
 
         public GroupHelper ModifyGroupForm(GroupData group)
         {//изменение данных группы
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
+
 
         public GroupHelper RemoveGroupTest()
         {//удаление группы

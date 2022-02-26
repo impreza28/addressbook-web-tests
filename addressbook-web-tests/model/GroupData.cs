@@ -24,7 +24,6 @@ namespace addressbook_web_tests
          this.name = name;
          this.header = header = "";
          this.footer = footer = "";
-
         }
         public GroupData(string name)
         {

@@ -26,7 +26,7 @@ namespace addressbook_web_tests
 
             app = new ApplicationManager();
             app.Navigator.OpenHomePage();
-            app.Auth.LoginAdmin(new AccountData("admin", "secret"));
+            app.Auth.Login(new AccountData("admin", "secret"));
         }
         [TearDown]
         public void TeardownTest()

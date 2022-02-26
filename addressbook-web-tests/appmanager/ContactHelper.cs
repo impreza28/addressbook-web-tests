@@ -28,12 +28,9 @@ namespace addressbook_web_tests
         }
 
         public ContactHelper ModifyContact(ContactData contact)
-        {
+        { //изменение данных контакта
             InitModifyContact();
             FillContactForm(contact);
-            //driver.FindElement(By.Name("firstname")).SendKeys("Test1");
-            //driver.FindElement(By.Name("middlename")).SendKeys("Test1");
-            //driver.FindElement(By.Name("lastname")).SendKeys("Test1");
             SubmitUpdateContact();
             return this;
         }
@@ -84,9 +81,10 @@ namespace addressbook_web_tests
 
         public ContactHelper FillContactForm(ContactData contact)
         {   //заполнение формы нового ноктакта
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
         public ContactHelper SubmitCreationContact()
