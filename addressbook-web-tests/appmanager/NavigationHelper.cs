@@ -30,6 +30,11 @@ namespace addressbook_web_tests
         {
             //переход на форму групп
             driver.FindElement(By.LinkText("group page")).Click();
+            if (driver.Url == baseURL + "group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
         }
         public void GoToGroupsPage()
         {
@@ -39,6 +44,10 @@ namespace addressbook_web_tests
         public void OpenHomePage()
         {
             //открытие сайта addressbook
+            if (driver.Url == baseURL && IsElementPresent(By.Id("MassCB")))
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL);
         }
 

@@ -24,13 +24,9 @@ namespace addressbook_web_tests
         {
             AccountData account = new AccountData("admin", "secret");
             app.Navigator.OpenHomePage();
-
             app.Auth.Logout();
-
             app.Auth.Login(account);
-
             Assert.IsTrue(app.Auth.IsLoggedIn(account));
-
         }
 
         [Test]
@@ -38,12 +34,9 @@ namespace addressbook_web_tests
         public void LoginWhithInvalidCredentials()
         {
             AccountData account = new AccountData("admin", "12345");
-
             app.Navigator.OpenHomePage();
             app.Auth.Logout();
-
             app.Auth.Login(account);
-
             Assert.IsFalse(app.Auth.IsLoggedIn(account));
 
         }
