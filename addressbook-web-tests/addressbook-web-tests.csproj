@@ -23,4 +23,9 @@
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.30.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="tests\Группы\" />
+    <Folder Include="tests\Контакты\" />
+  </ItemGroup>
+
 </Project>

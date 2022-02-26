@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
@@ -23,15 +21,11 @@ namespace addressbook_web_tests
         [SetUp]
         public void SetupTest()
         {
+            app = TestSuiteFixture.app;
+           // app = ApplicationManager.GetInstance();
 
-            app = new ApplicationManager();
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
+            //app.Navigator.OpenHomePage();
+            //app.Auth.Login(new AccountData("admin", "secret"));
         }
-        [TearDown]
-        public void TeardownTest()
-        {
-            app.Stop();
-          }
     }
 }
