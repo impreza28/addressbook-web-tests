@@ -46,7 +46,7 @@ namespace addressbook_web_tests
         public GroupHelper RemoveGroupTest()
         {//удаление группы
             manager.Navigator.GoToGroupsPage();
-            SelectCheckboxGroup();
+            SelectOrCreateGroup();
             InitRemoveGroup();
             manager.Navigator.GoToGroupsPage();
             return this;
