@@ -17,18 +17,11 @@ namespace addressbook_web_tests
     [Test]
     public void Test_ModifyGroup()
         {
-            GroupData group = new GroupData("Test");
-            group.Header = "Test";
-            group.Footer = "Test";
-            app.Groups.CreateGroup(group); //создание группы Test
 
-            app.Navigator.ReturnToGroupsPage();
+            app.Navigator.GoToGroupsPage();
 
-            GroupData updgroup = new GroupData("Test1");
-            updgroup.Header = "Test1";
-            updgroup.Footer = "Test1";
-
-            app.Groups.ModifyGroup(updgroup);//изменение группы Test
+            GroupData updgroup = new GroupData("Test1","Test1", "Test1");
+            app.Groups.ModifyGroup(updgroup);//изменение группы
         }
 
     }

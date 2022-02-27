@@ -9,7 +9,6 @@ namespace addressbook_web_tests
 {
     public class GroupHelper: HelperBase
     {
-
         public GroupHelper(ApplicationManager manager): base(manager)
         {
 
@@ -27,7 +26,7 @@ namespace addressbook_web_tests
 
         public GroupHelper ModifyGroup(GroupData group)
         {// изменение группы
-            SelectGroupTest();
+            SelectOrCreateGroup();
             InitGroupModify();
             ModifyGroupForm(group);
             SubmitUpdateGroup();
@@ -44,21 +43,41 @@ namespace addressbook_web_tests
             return this;
         }
 
-
         public GroupHelper RemoveGroupTest()
         {//удаление группы
             manager.Navigator.GoToGroupsPage();
-            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+            SelectCheckboxGroup();
             InitRemoveGroup();
             manager.Navigator.GoToGroupsPage();
             return this;
         }
 
-        public GroupHelper SelectGroupTest()
-        {//выбор группы Test
-            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+        public GroupHelper SelectCheckboxGroup()
+        {// нажатие на чекбокс любой группы
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
+        public GroupHelper SelectOrCreateGroup()
+        {// выбор группы или её создание
+            if (GroupIsFinded()) //если группа  найдена, то выбрать группу
+            {
+                driver.FindElement(By.Name("selected[]")).Click();
+                return this;
+            }
+
+            // если ни одной группы не найдено, то создать группу Test
+            GroupData group = new GroupData("Test", "Test", "Test");
+            CreateGroup(group);
+            manager.Navigator.GoToGroupsPage();
+            SelectCheckboxGroup();
+            return this;
+        }
+
+        public bool GroupIsFinded() 
+        {// проверка наличия любой группы на форме Групп
+            return IsElementPresent(By.Name("selected[]"));
+        }
+
 
         public GroupHelper SubmitUpdateGroup()
         {// подтверждение изменения группы

@@ -44,7 +44,7 @@ namespace addressbook_web_tests
         public void OpenHomePage()
         {
             //открытие сайта addressbook
-            if (driver.Url == baseURL && IsElementPresent(By.Id("MassCB")))
+            if (driver.Url == baseURL && IsElementPresent(By.Name("add")))
             {
                 return;
             }
