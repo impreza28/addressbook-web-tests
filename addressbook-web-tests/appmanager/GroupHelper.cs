@@ -17,7 +17,7 @@ namespace addressbook_web_tests
 
         public GroupHelper CreateGroup(GroupData group)
         {// создание новой группы
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             InitGroupCreation();
             FillGroupForm(group);
             SubmitCreationGroup();
@@ -30,7 +30,7 @@ namespace addressbook_web_tests
             InitGroupModify();
             ModifyGroupForm(group);
             SubmitUpdateGroup();
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
@@ -45,10 +45,10 @@ namespace addressbook_web_tests
 
         public GroupHelper RemoveGroupTest()
         {//удаление группы
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             SelectOrCreateGroup();
             InitRemoveGroup();
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
@@ -68,7 +68,7 @@ namespace addressbook_web_tests
             // если ни одной группы не найдено, то создать группу Test
             GroupData group = new GroupData("Test", "Test", "Test");
             CreateGroup(group);
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             SelectCheckboxGroup();
             return this;
         }

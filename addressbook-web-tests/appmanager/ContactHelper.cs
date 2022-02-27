@@ -48,10 +48,10 @@ namespace addressbook_web_tests
         }
 
         public ContactHelper RemoveContact()
-        { //удаление контакта Test
-            SelectContactTest();
-            InitContactDelete();
-            AcceptContactDelete();
+        { //удаление контакта
+            SelectOrCreateContact();
+            InitContactRemove();
+            SubmitContactRemove();
             return this;
         }
 
@@ -61,19 +61,40 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public ContactHelper SelectContactTest()
-        {//выбор контакта Test
-            driver.FindElement(By.XPath("//input[@title=\'Select (Test Test)\']")).Click();
+        public ContactHelper SelectOrCreateContact()
+        {// 
+            if (ContactIsFinded()) //если контакт  найден, то выбрать контакт
+            {
+                driver.FindElement(By.Name("selected[]")).Click();
+                return this;
+            }
+
+            // если ни одного контакта не найдено, то создать контакт
+            ContactData contact = new ContactData("Test", "Test", "Test");
+            CreateContact(contact);
+            manager.Navigator.ReturnToHomePage();
+            SelectCheckboxContact();
             return this;
         }
 
-        public ContactHelper InitContactDelete()
+        public bool ContactIsFinded()
+        {
+           return IsElementPresent(By.Name("selected[]"));
+        }
+
+        public ContactHelper SelectCheckboxContact()
+        {// нажатие на чекбокс любого контакта
+            driver.FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactRemove()
         {// инициация удаления контакта
             driver.FindElement(By.XPath("//input[@value=\'Delete\']")).Click();
             return this;
         }
 
-        public ContactHelper AcceptContactDelete()
+        public ContactHelper SubmitContactRemove()
         {//подтверждение удаления контакта
             driver.SwitchTo().Alert().Accept();
             return this;

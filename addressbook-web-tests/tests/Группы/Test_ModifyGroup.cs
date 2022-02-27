@@ -18,7 +18,7 @@ namespace addressbook_web_tests
     public void Test_ModifyGroup()
         {
 
-            app.Navigator.GoToGroupsPage();
+            app.Navigator.OpenGroupsPage();
 
             GroupData updgroup = new GroupData("Test1","Test1", "Test1");
             app.Groups.ModifyGroup(updgroup);//изменение группы

@@ -22,7 +22,7 @@ namespace addressbook_web_tests
             contact.Lastname = "Test1";
 
             app.Contacts.ModifyContact(contact); 
-            app.Navigator.OpenLinkHomePage();
+            app.Navigator.ReturnToHomePage();
         }
 
     }
