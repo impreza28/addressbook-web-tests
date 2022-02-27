@@ -92,7 +92,7 @@ namespace addressbook_web_tests
 
         public ContactHelper InitContactRemove()
         {// инициация удаления контакта
-            driver.FindElement(By.XPath("//input[@value=\'Delete\']")).Click();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
 
