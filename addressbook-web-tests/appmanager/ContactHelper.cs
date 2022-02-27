@@ -29,6 +29,7 @@ namespace addressbook_web_tests
 
         public ContactHelper ModifyContact(ContactData contact)
         { //изменение данных контакта
+            SelectOrCreateContact();
             InitModifyContact();
             FillContactForm(contact);
             SubmitUpdateContact();
@@ -71,6 +72,7 @@ namespace addressbook_web_tests
 
             // если ни одного контакта не найдено, то создать контакт
             ContactData contact = new ContactData("Test", "Test", "Test");
+
             CreateContact(contact);
             manager.Navigator.ReturnToHomePage();
             SelectCheckboxContact();
@@ -78,7 +80,7 @@ namespace addressbook_web_tests
         }
 
         public bool ContactIsFinded()
-        {
+        {//проверка отображения любого контакта
            return IsElementPresent(By.Name("selected[]"));
         }
 
