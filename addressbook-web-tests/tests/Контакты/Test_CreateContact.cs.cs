@@ -11,7 +11,7 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class CreateContact:TestBase
+    public class CreateContact: AuthTestBase
     {
 
     [Test]
@@ -22,7 +22,7 @@ namespace addressbook_web_tests
             contact.Lastname = "Lastname";
 
             app.Contacts.CreateContact(contact);
-            app.Navigator.OpenLinkHomePage();
+            app.Navigator.ReturnToHomePage();
         }
 
 }

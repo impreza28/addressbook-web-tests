@@ -22,7 +22,7 @@ namespace addressbook_web_tests
             this.baseURL = baseURL;
         }
 
-        public void OpenLinkHomePage()
+        public void ReturnToHomePage()
         {   //переход по ссылке "home page" на главную страницу
             driver.FindElement(By.LinkText("home page")).Click();
         }
@@ -30,8 +30,13 @@ namespace addressbook_web_tests
         {
             //переход на форму групп
             driver.FindElement(By.LinkText("group page")).Click();
+            if (driver.Url == baseURL + "group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
         }
-        public void GoToGroupsPage()
+        public void OpenGroupsPage()
         {
             //переход на форму групп
             driver.FindElement(By.LinkText("groups")).Click();
@@ -39,6 +44,10 @@ namespace addressbook_web_tests
         public void OpenHomePage()
         {
             //открытие сайта addressbook
+            if (driver.Url == baseURL && IsElementPresent(By.Name("add")))
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL);
         }
 

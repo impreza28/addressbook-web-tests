@@ -11,7 +11,7 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class CreateGroup: TestBase
+    public class CreateGroup: AuthTestBase
     {
 
     [Test]
@@ -22,6 +22,7 @@ namespace addressbook_web_tests
             group.Footer = "b";
             app.Groups.CreateGroup(group);
             app.Navigator.ReturnToGroupsPage();
+            app.Navigator.OpenHomePage();
         }
 
         [Test]
@@ -33,6 +34,7 @@ namespace addressbook_web_tests
             group.Footer = "";
             app.Groups.CreateGroup(group);
             app.Navigator.ReturnToGroupsPage();
+            app.Navigator.OpenHomePage();
         }
 
 

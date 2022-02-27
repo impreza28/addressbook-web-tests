@@ -9,7 +9,6 @@ namespace addressbook_web_tests
 {
     public class GroupHelper: HelperBase
     {
-
         public GroupHelper(ApplicationManager manager): base(manager)
         {
 
@@ -18,7 +17,7 @@ namespace addressbook_web_tests
 
         public GroupHelper CreateGroup(GroupData group)
         {// создание новой группы
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             InitGroupCreation();
             FillGroupForm(group);
             SubmitCreationGroup();
@@ -27,36 +26,58 @@ namespace addressbook_web_tests
 
         public GroupHelper ModifyGroup(GroupData group)
         {// изменение группы
-            SelectGroupTest();
+            SelectOrCreateGroup();
             InitGroupModify();
             ModifyGroupForm(group);
             SubmitUpdateGroup();
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
         public GroupHelper ModifyGroupForm(GroupData group)
         {//изменение данных группы
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
 
         public GroupHelper RemoveGroupTest()
         {//удаление группы
-            manager.Navigator.GoToGroupsPage();
-            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+            manager.Navigator.OpenGroupsPage();
+            SelectOrCreateGroup();
             InitRemoveGroup();
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
-        public GroupHelper SelectGroupTest()
-        {//выбор группы Test
-            driver.FindElement(By.XPath("//input[@title='Select (Test)']")).Click();
+        public GroupHelper SelectCheckboxGroup()
+        {// нажатие на чекбокс любой группы
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
+        public GroupHelper SelectOrCreateGroup()
+        {// выбор группы или её создание
+            if (GroupIsFinded()) //если группа  найдена, то выбрать группу
+            {
+                driver.FindElement(By.Name("selected[]")).Click();
+                return this;
+            }
+
+            // если ни одной группы не найдено, то создать группу Test
+            GroupData group = new GroupData("Test", "Test", "Test");
+            CreateGroup(group);
+            manager.Navigator.OpenGroupsPage();
+            SelectCheckboxGroup();
+            return this;
+        }
+
+        public bool GroupIsFinded() 
+        {// проверка наличия любой группы на форме Групп
+            return IsElementPresent(By.Name("selected[]"));
+        }
+
 
         public GroupHelper SubmitUpdateGroup()
         {// подтверждение изменения группы

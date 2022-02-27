@@ -17,13 +17,17 @@ namespace addressbook_web_tests
     {
 
         protected IWebDriver driver;
-        protected string baseURL;
+        public string baseURL;
 
 
         protected LoginHelper loginhelper;
         protected NavigationHelper navigationhelper;
         protected ContactHelper contacthelper;
         protected GroupHelper grouphelper;
+
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+        //private ApplicationManager app;
+
 
         public ApplicationManager() 
         {
@@ -38,14 +42,8 @@ namespace addressbook_web_tests
 
         }
 
-
-        public IWebDriver Driver 
-        {
-            get { return driver; }
-        }
-
-        //закрытие браузера
-        public void Stop()
+        //деструктор для остановки браузера
+        ~ApplicationManager() 
         {
             try
             {
@@ -53,6 +51,24 @@ namespace addressbook_web_tests
             }
             catch (Exception) { }
         }
+
+        public static ApplicationManager GetInstance() 
+        {
+            if (! app.IsValueCreated) 
+            {
+                ApplicationManager newInctance = new ApplicationManager();
+
+                newInctance.Navigator.OpenHomePage();
+                app.Value = newInctance;
+            }
+            return app.Value;
+        }
+
+        public IWebDriver Driver 
+        {
+            get { return driver; }
+        }
+
         public LoginHelper Auth 
         {
             get 
