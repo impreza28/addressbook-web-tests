@@ -41,10 +41,9 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public GroupHelper RemoveGroupTest()
+        public GroupHelper RemoveGroup()
         {//удаление группы
             InitRemoveGroup();
-            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
