@@ -33,7 +33,7 @@ namespace addressbook_web_tests
                 app.Contacts.CreateContact(newcontact);
                 app.Navigator.ReturnToHomePage();
 
-                app.Contacts.SelectCheckboxContact();
+                app.Contacts.SelectCheckboxContact(); //выбрать контакт
 
                 //удалить контакт
                 app.Contacts.RemoveContact();
