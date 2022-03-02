@@ -17,13 +17,27 @@ namespace addressbook_web_tests
     [Test]
     public void Test_RemoveGroup()
         {
-            //GroupData group = new GroupData("Test");
-            //group.Header = "Test";
-            //group.Footer = "Test";
-            //app.Groups.CreateGroup(group);  //создание группы Test
-            //app.Navigator.ReturnToGroupsPage();
+            app.Navigator.OpenGroupsPage();
 
-            app.Groups.RemoveGroupTest(); //удаление группы Test
+            if (app.Groups.GroupIsFinded()) //если группа  найдена, то выбрать группу
+            {
+                app.Groups.SelectCheckboxGroup() 
+                          .RemoveGroup(); //удаление группы
+                app.Navigator.ReturnToGroupsPage();
+                return;
+            }
+            else
+            {
+                // если ни одной группы не найдено, то создать группу Test
+                GroupData group = new GroupData("Test", "Test", "Test");
+                app.Groups.CreateGroup(group);
+
+                app.Navigator.OpenGroupsPage();
+                app.Groups.SelectCheckboxGroup()
+                          .RemoveGroup(); //удаление группы 
+                app.Navigator.ReturnToGroupsPage();
+                return;
+            }
         }
 
     }

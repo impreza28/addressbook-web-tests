@@ -29,7 +29,6 @@ namespace addressbook_web_tests
 
         public ContactHelper ModifyContact(ContactData contact)
         { //изменение данных контакта
-            SelectOrCreateContact();
             InitModifyContact();
             FillContactForm(contact);
             SubmitUpdateContact();
@@ -50,7 +49,6 @@ namespace addressbook_web_tests
 
         public ContactHelper RemoveContact()
         { //удаление контакта
-            SelectOrCreateContact();
             InitContactRemove();
             SubmitContactRemove();
             return this;
@@ -59,23 +57,6 @@ namespace addressbook_web_tests
         public ContactHelper InitContactCreation()
         {   //инициация создания нового ноктакта
             driver.FindElement(By.LinkText("add new")).Click();
-            return this;
-        }
-
-        public ContactHelper SelectOrCreateContact()
-        {// 
-            if (ContactIsFinded()) //если контакт  найден, то выбрать контакт
-            {
-                driver.FindElement(By.Name("selected[]")).Click();
-                return this;
-            }
-
-            // если ни одного контакта не найдено, то создать контакт
-            ContactData contact = new ContactData("Test", "Test", "Test");
-
-            CreateContact(contact);
-            manager.Navigator.ReturnToHomePage();
-            SelectCheckboxContact();
             return this;
         }
 

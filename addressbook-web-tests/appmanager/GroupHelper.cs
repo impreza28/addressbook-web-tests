@@ -26,11 +26,9 @@ namespace addressbook_web_tests
 
         public GroupHelper ModifyGroup(GroupData group)
         {// изменение группы
-            SelectOrCreateGroup();
             InitGroupModify();
             ModifyGroupForm(group);
             SubmitUpdateGroup();
-            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
@@ -43,33 +41,15 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public GroupHelper RemoveGroupTest()
+        public GroupHelper RemoveGroup()
         {//удаление группы
-            manager.Navigator.OpenGroupsPage();
-            SelectOrCreateGroup();
             InitRemoveGroup();
-            manager.Navigator.OpenGroupsPage();
             return this;
         }
 
         public GroupHelper SelectCheckboxGroup()
         {// нажатие на чекбокс любой группы
             driver.FindElement(By.Name("selected[]")).Click();
-            return this;
-        }
-        public GroupHelper SelectOrCreateGroup()
-        {// выбор группы или её создание
-            if (GroupIsFinded()) //если группа  найдена, то выбрать группу
-            {
-                driver.FindElement(By.Name("selected[]")).Click();
-                return this;
-            }
-
-            // если ни одной группы не найдено, то создать группу Test
-            GroupData group = new GroupData("Test", "Test", "Test");
-            CreateGroup(group);
-            manager.Navigator.OpenGroupsPage();
-            SelectCheckboxGroup();
             return this;
         }
 
