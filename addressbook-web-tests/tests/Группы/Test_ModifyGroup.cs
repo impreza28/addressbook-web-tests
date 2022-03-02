@@ -20,8 +20,27 @@ namespace addressbook_web_tests
 
             app.Navigator.OpenGroupsPage();
 
-            GroupData updgroup = new GroupData("Test1","Test1", "Test1");
-            app.Groups.ModifyGroup(updgroup);//изменение группы
+            if (app.Groups.GroupIsFinded()) //если группа  найдена, то выбрать группу
+            {
+                app.Groups.SelectCheckboxGroup();
+                GroupData updgroup = new GroupData("Test1", "Test1", "Test1");
+                app.Groups.ModifyGroup(updgroup);
+                app.Navigator.ReturnToGroupsPage();//изменение группы
+                return;
+            }
+            else 
+            {
+                // если ни одной группы не найдено, то создать группу Test
+                GroupData group = new GroupData("Test", "Test", "Test");
+                app.Groups.CreateGroup(group);
+                app.Navigator.OpenGroupsPage();
+                app.Groups.SelectCheckboxGroup();
+
+                GroupData updgroup1 = new GroupData("Test1", "Test1", "Test1");
+                app.Groups.ModifyGroup(updgroup1);
+                app.Navigator.ReturnToGroupsPage();//изменение группы
+                return;
+            }
         }
 
     }
