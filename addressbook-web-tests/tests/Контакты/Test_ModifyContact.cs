@@ -17,12 +17,35 @@ namespace addressbook_web_tests
     [Test]
     public void Test_ModifyContact()
         {
-            ContactData contact = new ContactData("Test1");
-            contact.Middlename = "Test1";
-            contact.Lastname = "Test1";
 
-            app.Contacts.ModifyContact(contact); 
-            app.Navigator.ReturnToHomePage();
+            if (app.Contacts.ContactIsFinded()) //если контакт  найден, то выбрать контакт
+                {
+                app.Contacts.SelectCheckboxContact();
+
+                ContactData contactupd = new ContactData("Test3");
+                contactupd.Middlename = "Test2";
+                contactupd.Lastname = "Test2";
+
+                //изменить контакт
+                app.Contacts.ModifyContact(contactupd);
+                app.Navigator.ReturnToHomePage();
+                return;
+                }
+            else
+            {   // если ни одного контакта не найдено, то создать контакт
+                ContactData newcontact = new ContactData("Test", "Test", "Test");
+                app.Contacts.CreateContact(newcontact);
+                app.Navigator.ReturnToHomePage();
+
+                app.Contacts.SelectCheckboxContact();
+                //изменить контакт
+                ContactData contactupd = new ContactData("Test1", "Test1", "Test1");
+                app.Contacts.ModifyContact(contactupd);
+                app.Navigator.ReturnToHomePage();
+
+                return;
+            }
+
         }
 
     }
