@@ -18,28 +18,17 @@ namespace addressbook_web_tests
     public void Test_RemoveContact()
         {
 
-            if (app.Contacts.ContactIsFinded()) //если контакт  найден
-            {
-                app.Contacts.SelectCheckboxContact(); //выбрать контакт
-
-                //удалить контакт
-                app.Contacts.RemoveContact();
-
-                return;
-            }
+            if (app.Contacts.ContactIsFinded()) //если контакт  найден, то начать удаление
+            {  }
             else
             {   // если ни одного контакта не найдено, то создать контакт
                 ContactData newcontact = new ContactData("Test", "Test", "Test");
                 app.Contacts.CreateContact(newcontact);
                 app.Navigator.ReturnToHomePage();
-
-                app.Contacts.SelectCheckboxContact(); //выбрать контакт
-
-                //удалить контакт
-                app.Contacts.RemoveContact();
-
-                return;
             }
+
+            app.Contacts.SelectCheckboxContact() //выбрать контакт
+                        .RemoveContact(); //удалить контакт
         }
     }
 }

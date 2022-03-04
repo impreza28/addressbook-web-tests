@@ -19,25 +19,18 @@ namespace addressbook_web_tests
         {
             app.Navigator.OpenGroupsPage();
 
-            if (app.Groups.GroupIsFinded()) //если группа  найдена, то выбрать группу
-            {
-                app.Groups.SelectCheckboxGroup() 
-                          .RemoveGroup(); //удаление группы
-                app.Navigator.ReturnToGroupsPage();
-                return;
-            }
+            if (app.Groups.GroupIsFinded()) //если группа  найдена, то начать кейс удаления группы
+            {  }
             else
             {
                 // если ни одной группы не найдено, то создать группу Test
                 GroupData group = new GroupData("Test", "Test", "Test");
                 app.Groups.CreateGroup(group);
-
-                app.Navigator.OpenGroupsPage();
-                app.Groups.SelectCheckboxGroup()
-                          .RemoveGroup(); //удаление группы 
-                app.Navigator.ReturnToGroupsPage();
-                return;
             }
+            app.Navigator.OpenGroupsPage();
+            app.Groups.SelectCheckboxGroup()
+                      .RemoveGroup(); //удаление группы
+            app.Navigator.ReturnToGroupsPage();
         }
 
     }
