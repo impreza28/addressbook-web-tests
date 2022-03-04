@@ -18,35 +18,19 @@ namespace addressbook_web_tests
     public void Test_ModifyContact()
         {
 
-            if (app.Contacts.ContactIsFinded()) //если контакт  найден, то выбрать контакт
-                {
-                app.Contacts.SelectCheckboxContact();
-
-                ContactData contactupd = new ContactData("Test3");
-                contactupd.Middlename = "Test2";
-                contactupd.Lastname = "Test2";
-
-                //изменить контакт
-                app.Contacts.ModifyContact(contactupd);
-                app.Navigator.ReturnToHomePage();
-                return;
-                }
+            if (app.Contacts.ContactIsFinded()) //если контакт  найден, то начать модификацию
+                {  }
             else
             {   // если ни одного контакта не найдено, то создать контакт
                 ContactData newcontact = new ContactData("Test", "Test", "Test");
                 app.Contacts.CreateContact(newcontact);
                 app.Navigator.ReturnToHomePage();
-
-                app.Contacts.SelectCheckboxContact();
-                //изменить контакт
-                ContactData contactupd = new ContactData("Test1", "Test1", "Test1");
-                app.Contacts.ModifyContact(contactupd);
-                app.Navigator.ReturnToHomePage();
-
-                return;
             }
 
+            ContactData contactupd = new ContactData("Test1", "Test1", "Test1");
+            app.Contacts.SelectCheckboxContact()
+                        .ModifyContact(contactupd); //изменить контакт
+            app.Navigator.ReturnToHomePage();
         }
-
     }
 }
