@@ -19,7 +19,7 @@ namespace addressbook_web_tests
         {
 
             if (app.Contacts.ContactIsFinded()) //если контакт  найден, то начать модификацию
-                {  }
+            {  }
             else
             {   // если ни одного контакта не найдено, то создать контакт
                 ContactData newcontact = new ContactData("Test", "Test", "Test");
