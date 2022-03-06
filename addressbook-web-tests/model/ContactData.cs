@@ -13,7 +13,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class ContactData
+    public class ContactData: IEquatable<ContactData>
     {
         private string firstname;
         private string middlename;
@@ -62,6 +62,25 @@ namespace addressbook_web_tests
             {
                 lastname = value;
             }
+        }
+
+        public bool Equals(ContactData other)
+        {
+            if (object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            return Firstname == other.Firstname;
+            return Lastname == other.Lastname;
+        }
+        public int GetHashCode()
+        {
+            return Firstname.GetHashCode();
+            return Lastname.GetHashCode();
         }
     }
 }
