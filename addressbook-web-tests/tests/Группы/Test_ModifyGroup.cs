@@ -33,7 +33,7 @@ namespace addressbook_web_tests
 
             GroupData updgroup = new GroupData("Test1", "Test1", "Test1");
 
-            app.Groups.SelectCheckboxGroup()
+            app.Groups.SelectCheckboxGroup(0)
                       .ModifyGroup(updgroup); //изменение группы
             app.Navigator.ReturnToGroupsPage();
         }

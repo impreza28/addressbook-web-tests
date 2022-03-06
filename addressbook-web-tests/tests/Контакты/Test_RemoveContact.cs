@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 
 namespace addressbook_web_tests
 {
@@ -17,6 +18,7 @@ namespace addressbook_web_tests
     [Test]
     public void Test_RemoveContact()
         {
+            List<ContactData> oldContacts = app.Contacts.GetContactList();  // список   групп
 
             if (!app.Contacts.ContactIsFinded())
             {   // если ни одного контакта не найдено, то создать контакт
@@ -27,6 +29,11 @@ namespace addressbook_web_tests
 
             app.Contacts.SelectCheckboxContact() //выбрать контакт
                         .RemoveContact(); //удалить контакт
+
+            List<ContactData> newContacts = app.Contacts.GetContactList(); //новый список групп 
+            oldContacts.RemoveAt(0);
+
+            Assert.AreEqual(oldContacts, newContacts); //проверка списка 
         }
     }
 }

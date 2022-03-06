@@ -48,9 +48,9 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public GroupHelper SelectCheckboxGroup()
+        public GroupHelper SelectCheckboxGroup(int index)
         {// нажатие на чекбокс любой группы
-            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])["+ (index+1) +"]")).Click();
             return this;
         }
 

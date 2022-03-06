@@ -22,7 +22,7 @@ namespace addressbook_web_tests
             
             app.Navigator.OpenGroupsPage();
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();  // список   групп
 
 
             if (!app.Groups.GroupIsFinded())
@@ -32,14 +32,14 @@ namespace addressbook_web_tests
                 app.Groups.CreateGroup(group);
             }
             app.Navigator.OpenGroupsPage();
-            app.Groups.SelectCheckboxGroup()
+            app.Groups.SelectCheckboxGroup(0)
                       .RemoveGroup(); //удаление группы
             app.Navigator.ReturnToGroupsPage();
 
-            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой
+            List<GroupData> newgroups = app.Groups.GetGroupList(); //новый список групп 
             oldGroups.RemoveAt(0);
 
-            Assert.AreEqual(oldGroups, newgroups); //проверка списка (число групп увеличилось на 1)
+            Assert.AreEqual(oldGroups, newgroups); //проверка списка 
         }
 
     }
