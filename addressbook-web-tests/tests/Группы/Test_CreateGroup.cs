@@ -43,9 +43,9 @@ namespace addressbook_web_tests
             group.Footer = "";
             app.Groups.CreateGroup(group);
             app.Navigator.ReturnToGroupsPage();
-            app.Navigator.OpenHomePage();
 
             List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой
+
             Assert.AreEqual(oldGroups.Count + 1, newgroups.Count); //проверка списка (число групп увеличилось на 1)
         }
 

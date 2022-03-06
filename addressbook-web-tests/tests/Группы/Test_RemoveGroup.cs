@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 
 namespace addressbook_web_tests
 {
@@ -17,11 +18,14 @@ namespace addressbook_web_tests
     [Test]
     public void Test_RemoveGroup()
         {
+            
+            
             app.Navigator.OpenGroupsPage();
 
-            if (app.Groups.GroupIsFinded()) //если группа  найдена, то начать кейс удаления группы
-            {  }
-            else
+            List<GroupData> oldGroups = app.Groups.GetGroupList(); 
+
+
+            if (!app.Groups.GroupIsFinded())
             {
                 // если ни одной группы не найдено, то создать группу Test
                 GroupData group = new GroupData("Test", "Test", "Test");
@@ -31,6 +35,11 @@ namespace addressbook_web_tests
             app.Groups.SelectCheckboxGroup()
                       .RemoveGroup(); //удаление группы
             app.Navigator.ReturnToGroupsPage();
+
+            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой
+            oldGroups.RemoveAt(0);
+
+            Assert.AreEqual(oldGroups, newgroups); //проверка списка (число групп увеличилось на 1)
         }
 
     }

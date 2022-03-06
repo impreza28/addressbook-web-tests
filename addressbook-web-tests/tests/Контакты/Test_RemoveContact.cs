@@ -18,9 +18,7 @@ namespace addressbook_web_tests
     public void Test_RemoveContact()
         {
 
-            if (app.Contacts.ContactIsFinded()) //если контакт  найден, то начать удаление
-            {  }
-            else
+            if (!app.Contacts.ContactIsFinded())
             {   // если ни одного контакта не найдено, то создать контакт
                 ContactData newcontact = new ContactData("Test", "Test", "Test");
                 app.Contacts.CreateContact(newcontact);
