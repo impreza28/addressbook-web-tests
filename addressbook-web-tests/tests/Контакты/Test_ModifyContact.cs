@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 
 namespace addressbook_web_tests
 {
@@ -18,19 +19,28 @@ namespace addressbook_web_tests
     public void Test_ModifyContact()
         {
 
-            if (app.Contacts.ContactIsFinded()) //если контакт  найден, то начать модификацию
-            {  }
-            else
-            {   // если ни одного контакта не найдено, то создать контакт
-                ContactData newcontact = new ContactData("Test", "Test", "Test");
-                app.Contacts.CreateContact(newcontact);
+            if (!app.Contacts.ContactIsFinded()) // если ни одного контакта не найдено, то создать контакт
+            {   
+                ContactData newContact = new ContactData("Test", "Test", "Test");
+                app.Contacts.CreateContact(newContact);
                 app.Navigator.ReturnToHomePage();
             }
 
-            ContactData contactupd = new ContactData("Test1", "Test1", "Test1");
-            app.Contacts.SelectCheckboxContact()
-                        .ModifyContact(contactupd); //изменить контакт
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList(); //список текущих контактов 
+
+            ContactData updContact = new ContactData("Test1", "Test1", "Test1");
+            app.Contacts.SelectCheckboxContact(0)
+                        .ModifyContact(updContact); //изменить контакт
             app.Navigator.ReturnToHomePage();
+
+            List<ContactData> newContacts = app.Contacts.GetContactList(); //список новых контактов 
+
+            oldContacts[0].Firstname = updContact.Firstname; //у элемента 0 меняем Firstname в старом списке
+            oldContacts[0].Lastname = updContact.Lastname; //у элемента 0 меняем Lastname в старом списке
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts); //сравнение списков
         }
     }
 }

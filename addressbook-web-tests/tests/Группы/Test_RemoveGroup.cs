@@ -22,24 +22,23 @@ namespace addressbook_web_tests
             
             app.Navigator.OpenGroupsPage();
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();  // список   групп
-
-
             if (!app.Groups.GroupIsFinded())
             {
                 // если ни одной группы не найдено, то создать группу Test
                 GroupData group = new GroupData("Test", "Test", "Test");
                 app.Groups.CreateGroup(group);
             }
-            app.Navigator.OpenGroupsPage();
-            app.Groups.SelectCheckboxGroup(0)
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();  // список   групп
+
+            app.Groups.SelectCheckboxGroup(0) // выбрать группу с index=0
                       .RemoveGroup(); //удаление группы
             app.Navigator.ReturnToGroupsPage();
 
-            List<GroupData> newgroups = app.Groups.GetGroupList(); //новый список групп 
-            oldGroups.RemoveAt(0);
+            List<GroupData> newGroups = app.Groups.GetGroupList(); //новый список групп 
+            oldGroups.RemoveAt(0); // удалить из старого списка группу с index=0
 
-            Assert.AreEqual(oldGroups, newgroups); //проверка списка 
+            Assert.AreEqual(oldGroups, newGroups); //сравнение списков
         }
 
     }

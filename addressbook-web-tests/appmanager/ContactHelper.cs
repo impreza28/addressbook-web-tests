@@ -65,9 +65,10 @@ namespace addressbook_web_tests
            return IsElementPresent(By.Name("selected[]"));
         }
 
-        public ContactHelper SelectCheckboxContact()
-        {// нажатие на чекбокс любого контакта
-            driver.FindElement(By.Name("selected[]")).Click();
+        public ContactHelper SelectCheckboxContact(int index)
+        {// нажатие на чекбокс контакта
+            //driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 

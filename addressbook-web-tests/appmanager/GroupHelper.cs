@@ -102,13 +102,13 @@ namespace addressbook_web_tests
 
 
         public List<GroupData> GetGroupList()
-        {
+        {  //формирование списка групп  
             List<GroupData> groups = new List<GroupData>();
             manager.Navigator.OpenGroupsPage();
 
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //список элементов
 
-            foreach (IWebElement element in elements)
+            foreach (IWebElement element in elements) 
             {
                 groups.Add(new GroupData(element.Text));
             }

@@ -18,7 +18,7 @@ namespace addressbook_web_tests
     [Test]
     public void Test_RemoveContact()
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();  // список   групп
+            List<ContactData> oldContacts = app.Contacts.GetContactList();  // список   контактов
 
             if (!app.Contacts.ContactIsFinded())
             {   // если ни одного контакта не найдено, то создать контакт
@@ -27,12 +27,13 @@ namespace addressbook_web_tests
                 app.Navigator.ReturnToHomePage();
             }
 
-            app.Contacts.SelectCheckboxContact() //выбрать контакт
+            app.Contacts.SelectCheckboxContact(0) //выбрать контакт
                         .RemoveContact(); //удалить контакт
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(); //новый список групп 
+            List<ContactData> newContacts = app.Contacts.GetContactList(); //новый список контактов 
             oldContacts.RemoveAt(0);
-
+            oldContacts.Sort();
+            newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts); //проверка списка 
         }
     }

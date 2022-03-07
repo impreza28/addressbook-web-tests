@@ -13,7 +13,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class ContactData: IEquatable<ContactData>
+    public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstname;
         private string middlename;
@@ -64,23 +64,42 @@ namespace addressbook_web_tests
             }
         }
 
-        public bool Equals(ContactData other)
+        public bool Equals(ContactData other) //реализация сравнения 
         {
-            if (object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other, null))
             {
                 return false;
             }
-            if (object.ReferenceEquals(other, this))
+            if (Object.ReferenceEquals(other, this))
             {
                 return true;
             }
             return Firstname == other.Firstname;
-            return Lastname == other.Lastname;
+            //return Firstname == other.Firstname;
         }
-        public int GetHashCode()
+
+
+
+        public override int GetHashCode()
         {
             return Firstname.GetHashCode();
-            return Lastname.GetHashCode();
+            //return Firstname.GetHashCode();
+
+        }
+
+        public override string ToString() //возвращает строковое значение
+        {
+            return "lastname / firstname=" + Lastname + Firstname;
+        }
+
+        public int CompareTo(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+           return Firstname.CompareTo(other.Firstname);
+           return Lastname.CompareTo(other.Lastname);
         }
     }
 }

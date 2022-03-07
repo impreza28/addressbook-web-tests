@@ -18,17 +18,23 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateContact()
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList(); //список 
+            List<ContactData> oldContacts = app.Contacts.GetContactList(); //список контактов
 
-            ContactData contact = new ContactData("Firstname");
-            contact.Middlename = "Middlename";
-            contact.Lastname = "Lastname";
+            ContactData contact = new ContactData("1");
+            contact.Middlename = "2";
+            contact.Lastname = "C";
 
             app.Contacts.CreateContact(contact);
             app.Navigator.ReturnToHomePage();
 
-            List<ContactData> newcontacts = app.Contacts.GetContactList(); //список групп после создания новой
-            Assert.AreEqual(oldContacts.Count + 1, newcontacts.Count); //проверка списка (число групп увеличилось на 1)
+            List<ContactData> newContacts = app.Contacts.GetContactList(); //список контактов после создания новой
+            oldContacts.Add(contact); //добавляем в старый список новый контакт
+            oldContacts.Sort(); //сортировка старого списка
+            newContacts.Sort(); // сортировка нового списка
+            Assert.AreEqual(oldContacts, newContacts); //сравнение списков
+
+
+            //Assert.AreEqual(oldContacts.Count + 1, newContacts.Count); //проверка контактов (число контактов увеличилось на 1)
         }
 
 }

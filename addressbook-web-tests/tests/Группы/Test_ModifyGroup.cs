@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 
 namespace addressbook_web_tests
 {
@@ -20,22 +21,25 @@ namespace addressbook_web_tests
 
             app.Navigator.OpenGroupsPage();
 
-            if (app.Groups.GroupIsFinded()) //если группа  найдена, то начать модификацию
-            { }
-            else 
-            {
-                // если ни одной группы не найдено, то создать группу Test
+            if (!app.Groups.GroupIsFinded()) // если ни одной группы не найдено, то создать группу Test
+            {  
                 GroupData group = new GroupData("Test", "Test", "Test");
                 app.Groups.CreateGroup(group);
             }
+           
+            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп 
 
-            app.Navigator.OpenGroupsPage();
-
-            GroupData updgroup = new GroupData("Test1", "Test1", "Test1");
+            GroupData updgroup = new GroupData("Test1", "Test1", "Test1"); //данные для изменения группы
 
             app.Groups.SelectCheckboxGroup(0)
                       .ModifyGroup(updgroup); //изменение группы
             app.Navigator.ReturnToGroupsPage();
+
+            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после модификации
+            oldGroups[0].Name = updgroup.Name; //у элемента меняем имя в старом списке
+            oldGroups.Sort();
+            newgroups.Sort();
+            Assert.AreEqual(oldGroups, newgroups); //сравнение списков
         }
 
     }
