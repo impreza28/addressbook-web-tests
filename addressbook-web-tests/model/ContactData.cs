@@ -74,22 +74,19 @@ namespace addressbook_web_tests
             {
                 return true;
             }
-            return Firstname == other.Firstname;
-            //return Firstname == other.Firstname;
+           
+            return ((Firstname == other.Firstname) && (Lastname == other.Lastname));
         }
-
 
 
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode();
-            //return Firstname.GetHashCode();
-
+            return Firstname.GetHashCode() & Lastname.GetHashCode();
         }
 
         public override string ToString() //возвращает строковое значение
         {
-            return "lastname / firstname=" + Lastname + Firstname;
+            return "Lastname / Firstname=" +"" +Lastname +" " +Firstname;
         }
 
         public int CompareTo(ContactData other)
@@ -98,8 +95,7 @@ namespace addressbook_web_tests
             {
                 return 1;
             }
-           return Firstname.CompareTo(other.Firstname);
-           return Lastname.CompareTo(other.Lastname);
+            return Firstname.CompareTo(other.Firstname); //& Lastname.CompareTo(other.Lastname);
         }
     }
 }

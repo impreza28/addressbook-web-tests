@@ -18,6 +18,7 @@ namespace addressbook_web_tests
     [Test]
     public void Test_CreateContact()
         {
+            app.Navigator.OpenHomePage();
             List<ContactData> oldContacts = app.Contacts.GetContactList(); //список контактов
 
             ContactData contact = new ContactData("1");
@@ -28,13 +29,12 @@ namespace addressbook_web_tests
             app.Navigator.ReturnToHomePage();
 
             List<ContactData> newContacts = app.Contacts.GetContactList(); //список контактов после создания новой
-            oldContacts.Add(contact); //добавляем в старый список новый контакт
+
+            oldContacts.Add(new ContactData(contact.Lastname + " "+contact.Firstname)); //добавить контакт в старый список в формате Lastname + " "+ Firstname
             oldContacts.Sort(); //сортировка старого списка
             newContacts.Sort(); // сортировка нового списка
-            Assert.AreEqual(oldContacts, newContacts); //сравнение списков
-
-
-            //Assert.AreEqual(oldContacts.Count + 1, newContacts.Count); //проверка контактов (число контактов увеличилось на 1)
+                Assert.AreEqual(oldContacts, newContacts); //сравнение списков
+      
         }
 
 }

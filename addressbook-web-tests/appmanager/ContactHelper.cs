@@ -67,8 +67,9 @@ namespace addressbook_web_tests
 
         public ContactHelper SelectCheckboxContact(int index)
         {// нажатие на чекбокс контакта
-            //driver.FindElement(By.Name("selected[]")).Click();
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+         //driver.FindElement(By.Name("selected[]")).Click();
+         driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            //driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
 
@@ -101,7 +102,7 @@ namespace addressbook_web_tests
 
 
         public List<ContactData> GetContactList()
-        {
+        {  //формирование списка контактов  
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.OpenHomePage();
 

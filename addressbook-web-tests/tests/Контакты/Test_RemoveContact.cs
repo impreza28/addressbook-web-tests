@@ -31,9 +31,7 @@ namespace addressbook_web_tests
                         .RemoveContact(); //удалить контакт
 
             List<ContactData> newContacts = app.Contacts.GetContactList(); //новый список контактов 
-            oldContacts.RemoveAt(0);
-            oldContacts.Sort();
-            newContacts.Sort();
+            oldContacts.RemoveAt(0);//удалить контакт с index=0 из старого списка
             Assert.AreEqual(oldContacts, newContacts); //проверка списка 
         }
     }
