@@ -24,6 +24,7 @@ namespace addressbook_web_tests
             return this;
         }
 
+
         public GroupHelper ModifyGroup(GroupData group)
         {// изменение группы
             InitGroupModify();
@@ -47,9 +48,9 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public GroupHelper SelectCheckboxGroup()
+        public GroupHelper SelectCheckboxGroup(int index)
         {// нажатие на чекбокс любой группы
-            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])["+ (index+1) +"]")).Click();
             return this;
         }
 
@@ -98,7 +99,23 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
-       
+
+
+        public List<GroupData> GetGroupList()
+        {  //формирование списка групп  
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigator.OpenGroupsPage();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //список элементов
+
+            foreach (IWebElement element in elements) 
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+
+            return groups;
+        }
+
 
     }
 }
