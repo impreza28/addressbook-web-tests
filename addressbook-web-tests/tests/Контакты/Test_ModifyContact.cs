@@ -35,8 +35,8 @@ namespace addressbook_web_tests
             app.Navigator.ReturnToHomePage();
 
             List<ContactData> newContacts = app.Contacts.GetContactList(); //список новых контактов 
-
-            oldContacts[0].Firstname = updContact.Lastname+ " "+ updContact.Firstname; //у элемента 0 меняем Firstname в старом списке
+            oldContacts[0].Firstname = updContact.Firstname; //у элемента меняем имя в старом списке
+            oldContacts[0].Lastname = updContact.Lastname; //у элемента меняем имя в старом списке
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts); //сравнение списков

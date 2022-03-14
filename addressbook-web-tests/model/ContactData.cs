@@ -22,7 +22,7 @@ namespace addressbook_web_tests
         public ContactData(string firstname, string middlename, string lastname)
         {
          this.firstname = firstname;
-         this.middlename = middlename;
+         this.middlename = middlename="";
          this.lastname = lastname;
 
         }
@@ -74,8 +74,9 @@ namespace addressbook_web_tests
             {
                 return true;
             }
-           
+
             return ((Firstname == other.Firstname) && (Lastname == other.Lastname));
+            //return Lastname == other.Lastname;
         }
 
 
@@ -86,7 +87,7 @@ namespace addressbook_web_tests
 
         public override string ToString() //возвращает строковое значение
         {
-            return "Lastname / Firstname=" +"" +Lastname +" " +Firstname;
+            return "Lastname / Firstname=" + Lastname + Firstname;
         }
 
         public int CompareTo(ContactData other)

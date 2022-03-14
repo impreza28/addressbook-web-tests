@@ -30,10 +30,10 @@ namespace addressbook_web_tests
 
             List<ContactData> newContacts = app.Contacts.GetContactList(); //список контактов после создания новой
 
-            oldContacts.Add(new ContactData(contact.Lastname + " "+contact.Firstname)); //добавить контакт в старый список в формате Lastname + " "+ Firstname
+            oldContacts.Add(contact); //добавить контакт в старый список в формате Lastname + " "+ Firstname
             oldContacts.Sort(); //сортировка старого списка
             newContacts.Sort(); // сортировка нового списка
-                Assert.AreEqual(oldContacts, newContacts); //сравнение списков
+            Assert.AreEqual(oldContacts, newContacts); //сравнение списков
       
         }
 

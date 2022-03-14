@@ -106,13 +106,16 @@ namespace addressbook_web_tests
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.OpenHomePage();
 
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            //ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
 
-            foreach (IWebElement element in elements)
+            IList<IWebElement> TdLastname = driver.FindElements(By.XPath("//table[@id='maintable']//td[2]"));
+            IList<IWebElement> TdFirstname = driver.FindElements(By.XPath("//table[@id='maintable']//td[3]"));
+
+            for (int i=0;i< TdLastname.Count();i++)
             {
-                contacts.Add(new ContactData(element.Text));
-            }
+                contacts.Add(new ContactData(TdFirstname[i].Text,"", TdLastname[i].Text));
 
+            }
             return contacts;
         }
     }
