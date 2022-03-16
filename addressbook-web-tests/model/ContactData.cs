@@ -76,7 +76,6 @@ namespace addressbook_web_tests
             }
 
             return ((Firstname == other.Firstname) && (Lastname == other.Lastname));
-            //return Lastname == other.Lastname;
         }
 
 
