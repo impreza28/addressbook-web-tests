@@ -33,6 +33,11 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count();
+        }
+
         public GroupHelper ModifyGroupForm(GroupData group)
         {//изменение данных группы
 

@@ -34,6 +34,7 @@ namespace addressbook_web_tests
             app.Groups.SelectCheckboxGroup(0)
                       .ModifyGroup(updgroup); //изменение группы
             app.Navigator.ReturnToGroupsPage();
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); //проверка списка (кол-во в списке не изменилось)
 
             List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после модификации
             oldGroups[0].Name = updgroup.Name; //у элемента меняем имя в старом списке

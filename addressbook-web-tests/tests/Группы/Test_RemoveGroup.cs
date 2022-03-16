@@ -34,6 +34,7 @@ namespace addressbook_web_tests
             app.Groups.SelectCheckboxGroup(0) // выбрать группу с index=0
                       .RemoveGroup(); //удаление группы
             app.Navigator.ReturnToGroupsPage();
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount()); //проверка списка (-1 группа)
 
             List<GroupData> newGroups = app.Groups.GetGroupList(); //новый список групп 
             oldGroups.RemoveAt(0); // удалить из старого списка группу с index=0
