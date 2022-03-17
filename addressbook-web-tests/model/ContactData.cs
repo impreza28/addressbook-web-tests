@@ -23,10 +23,10 @@ namespace addressbook_web_tests
          Lastname = lastname;
 
         }
-        public ContactData(string firstname)
-        {
-            Firstname = firstname;
-        }
+        //public ContactData(string firstname)
+        //{
+        //    Firstname = firstname;
+        //}
         public string Firstname { get; set; }
 
         public string Middlename { get; set; }
