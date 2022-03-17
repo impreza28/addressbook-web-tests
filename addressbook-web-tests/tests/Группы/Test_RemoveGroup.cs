@@ -37,9 +37,16 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount()); //проверка списка (-1 группа)
 
             List<GroupData> newGroups = app.Groups.GetGroupList(); //новый список групп 
+            GroupData toBeRemoved = oldGroups[0];
             oldGroups.RemoveAt(0); // удалить из старого списка группу с index=0
 
             Assert.AreEqual(oldGroups, newGroups); //сравнение списков
+
+            foreach(GroupData group in newGroups) //проверка, что удален элемент с тем самым Id из SelectCheckboxGroup
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+
+            }    
         }
 
     }

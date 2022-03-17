@@ -29,6 +29,7 @@ namespace addressbook_web_tests
            
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп 
 
+
             GroupData updgroup = new GroupData("Test1", "Test1", "Test1"); //данные для изменения группы
 
             app.Groups.SelectCheckboxGroup(0)
@@ -36,11 +37,19 @@ namespace addressbook_web_tests
             app.Navigator.ReturnToGroupsPage();
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); //проверка списка (кол-во в списке не изменилось)
 
-            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после модификации
+            List<GroupData> newGroups = app.Groups.GetGroupList(); //список групп после модификации
             oldGroups[0].Name = updgroup.Name; //у элемента меняем имя в старом списке
             oldGroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldGroups, newgroups); //сравнение списков
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups); //сравнение списков
+
+            foreach (GroupData group in newGroups) 
+            {
+            if (group.Id == oldGroups[0].Id)
+                {
+                    Assert.AreEqual(group.Name, updgroup.Name);
+                }
+            }
         }
 
     }

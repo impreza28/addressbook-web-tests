@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
@@ -122,7 +125,9 @@ namespace addressbook_web_tests
 
                 foreach (IWebElement element in elements)
                 {
-                    groupCache.Add(new GroupData(element.Text));
+                    //groupCache.Add(new GroupData(element.Text));
+                    groupCache.Add(new GroupData (element.Text)
+                    { Id = element.FindElement(By.TagName("input")).GetAttribute("value") });
                 }
             }    
 
