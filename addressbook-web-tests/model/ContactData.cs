@@ -15,54 +15,32 @@ namespace addressbook_web_tests
 {
     public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string middlename;
-        private string lastname;
 
         public ContactData(string firstname, string middlename, string lastname)
         {
-         this.firstname = firstname;
-         this.middlename = middlename="";
-         this.lastname = lastname;
+         Firstname = firstname;
+         Middlename = middlename;
+         Lastname = lastname;
 
         }
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
         }
-        public string Firstname
-        {
-            get
-            {
-                return firstname; 
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Firstname { get; set; }
+
+        public string Middlename { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+
 
         public bool Equals(ContactData other) //реализация сравнения 
         {
