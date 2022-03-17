@@ -26,6 +26,7 @@ namespace addressbook_web_tests
 
             app.Groups.CreateGroup(group);
             app.Navigator.ReturnToGroupsPage();
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); //проверка списка (+1 группа)
             app.Navigator.OpenHomePage();
 
             List<GroupData> newGroups = app.Groups.GetGroupList(); //список групп после создания новой
@@ -46,6 +47,7 @@ namespace addressbook_web_tests
             group.Footer = "";
             app.Groups.CreateGroup(group);
             app.Navigator.ReturnToGroupsPage();
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); //проверка списка
 
             List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой
             oldGroups.Add(group);
@@ -66,6 +68,7 @@ namespace addressbook_web_tests
 
             app.Groups.CreateGroup(group);
             app.Navigator.OpenGroupsPage();
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); //проверка списка (число групп не увеличилось)
 
 
             List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой

@@ -29,6 +29,8 @@ namespace addressbook_web_tests
 
             app.Contacts.SelectCheckboxContact(0) //выбрать контакт
                         .RemoveContact(); //удалить контакт
+            app.Navigator.OpenHomePage();
+            Assert.AreEqual(oldContacts.Count-1, app.Contacts.GetContactCount()); //проверка списка (число контактов уменьшилось -1)
 
             List<ContactData> newContacts = app.Contacts.GetContactList(); //новый список контактов 
             oldContacts.RemoveAt(0);//удалить контакт с index=0 из старого списка

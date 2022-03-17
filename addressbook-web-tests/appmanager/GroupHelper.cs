@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
@@ -31,6 +34,11 @@ namespace addressbook_web_tests
             ModifyGroupForm(group);
             SubmitUpdateGroup();
             return this;
+        }
+
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count();
         }
 
         public GroupHelper ModifyGroupForm(GroupData group)
@@ -63,6 +71,7 @@ namespace addressbook_web_tests
         public GroupHelper SubmitUpdateGroup()
         {// подтверждение изменения группы
             driver.FindElement(By.Name("update")).Click();
+            groupCache = null; //очистка кэша в GetGroupList
             return this;
         }
 
@@ -75,6 +84,7 @@ namespace addressbook_web_tests
         public GroupHelper InitRemoveGroup()
         {// нажать "Удалить группы"
             driver.FindElement(By.Name("delete")).Click();
+            groupCache = null; //очистка кэша в GetGroupList
             return this;
         }
 
@@ -97,23 +107,31 @@ namespace addressbook_web_tests
         {
             //подтверждение создания 
             driver.FindElement(By.Name("submit")).Click();
+            groupCache=null; //очистка кэша в GetGroupList
             return this;
         }
 
+        private List<GroupData> groupCache = null; //кэш
 
         public List<GroupData> GetGroupList()
         {  //формирование списка групп  
-            List<GroupData> groups = new List<GroupData>();
-            manager.Navigator.OpenGroupsPage();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //список элементов
-
-            foreach (IWebElement element in elements) 
+            if(groupCache == null) //если кэш чист, то заполняем кэш
             {
-                groups.Add(new GroupData(element.Text));
-            }
+                groupCache = new List<GroupData>();
 
-            return groups;
+                manager.Navigator.OpenGroupsPage();
+
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //список элементов
+
+                foreach (IWebElement element in elements)
+                {
+                    //groupCache.Add(new GroupData(element.Text));
+                    groupCache.Add(new GroupData (element.Text)
+                    { Id = element.FindElement(By.TagName("input")).GetAttribute("value") });
+                }
+            }    
+
+           return new List<GroupData>(groupCache);
         }
 
 
