@@ -69,6 +69,8 @@ namespace addressbook_web_tests
         //    }
         //}
 
+        public string Id { get; set; }
+
         public bool Equals(GroupData other) //реализация сравнения 
         { if (Object.ReferenceEquals(other, null))
             {
