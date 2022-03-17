@@ -43,7 +43,7 @@ namespace addressbook_web_tests
         public ContactHelper SubmitUpdateContact()
         {//подтверждение изменепния контакта
             driver.FindElement(By.Name("update")).Click();
-            contactCache = null;
+            contactCache = null; //очистка кэша
             return this;
         }
 
@@ -88,7 +88,7 @@ namespace addressbook_web_tests
         public ContactHelper SubmitContactRemove()
         {//подтверждение удаления контакта
             driver.SwitchTo().Alert().Accept();
-            contactCache = null;
+            contactCache = null; //очистка кэша
             return this;
         }
 
@@ -104,7 +104,7 @@ namespace addressbook_web_tests
         {
             //подтверждение создания 
             driver.FindElement(By.Name("submit")).Click();
-            contactCache = null;
+            contactCache = null; //очистка кэша
             return this;
         }
 
