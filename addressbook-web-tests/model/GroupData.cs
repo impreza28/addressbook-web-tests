@@ -17,57 +17,24 @@ namespace addressbook_web_tests
         : IEquatable<GroupData>, //функция сравнения
         IComparable<GroupData>
     {
-        //private string name;
-        //private string header;
-        //private string footer;
 
         public GroupData(string name, string header, string footer)
         {
             Name = name;
             Header = header;
             Footer = footer;
-            //this.name = name;
-            //this.header = header;
-            //this.footer = footer;
+
         }
         public GroupData(string name)
         {
             Name = name;
-            // this.name = name;
         }
         public string Name { get; set; }
-        //{
-        //    get
-        //    {
-        //        return name;
-        //    }
-        //    set
-        //    {
-        //        name = value;
-        //    }
-        //}
+
         public string Header {get; set;}
-        //{
-        //    get
-        //    {
-        //        return header;
-        //    }
-        //    set
-        //    {
-        //        header = value;
-        //    }
-        //}
+
         public string Footer { get; set; }
-        //{
-        //    get
-        //    {
-        //        return footer;
-        //    }
-        //    set
-        //    {
-        //        footer = value;
-        //    }
-        //}
+
 
         public string Id { get; set; }
 
