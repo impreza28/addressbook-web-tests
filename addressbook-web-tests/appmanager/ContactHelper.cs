@@ -130,7 +130,7 @@ namespace addressbook_web_tests
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
 
-            return new ContactData(firstName, middleName, lastName)
+            return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
@@ -141,7 +141,21 @@ namespace addressbook_web_tests
 
         public ContactData GetContactInfoFromTable(int index)
         {
+            manager.Navigator.OpenHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+                                           .FindElements(By.TagName("td"));
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
 
+            return new ContactData(firstName, lastName);
+
+            {
+                Address = address,
+                AllPhones = allPhones,
+
+            };
         }
 
         private List<ContactData> contactCache = null; //пустой кэш
@@ -162,10 +176,8 @@ namespace addressbook_web_tests
 
                 for (int i = 0; i < TdLastname.Count(); i++)
                 {
-                    contactCache.Add(new ContactData(TdFirstname[i].Text, "", TdLastname[i].Text));
-
+                    contactCache.Add(new ContactData(TdFirstname[i].Text, TdLastname[i].Text));
                 }
-                //return contacts;
             }
             return new List<ContactData>(contactCache);
         }

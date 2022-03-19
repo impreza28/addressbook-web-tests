@@ -13,14 +13,14 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
 
-        public ContactData(string firstname, string middlename, string lastname)
+        public ContactData(string firstname, string lastname)
         {
-         Firstname = firstname;
-         Middlename = middlename;
-         Lastname = lastname;
+            Firstname = firstname;
+            //Middlename = middlename;
+            Lastname = lastname;
 
         }
         //public ContactData(string firstname)
@@ -41,6 +41,35 @@ namespace addressbook_web_tests
 
         public string WorkPhone { get; set; }
 
+        public string AllPhones
+        {
+            get
+            {
+                if (AllPhones != null)
+                {
+                    return AllPhones;
+                }
+                else
+                {
+                    return CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone);
+                }
+            }
+            set
+            {
+
+            }
+        }
+
+        private string CleanUp(string phone) 
+        {
+            if (phone == null)
+            { 
+                return ""; 
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
+        }
+
+
 
         public bool Equals(ContactData other) //реализация сравнения 
         {
@@ -54,6 +83,7 @@ namespace addressbook_web_tests
             }
 
             return ((Firstname == other.Firstname) && (Lastname == other.Lastname));
+
         }
 
 
@@ -64,16 +94,14 @@ namespace addressbook_web_tests
 
         public override string ToString() //возвращает строковое значение
         {
-            return "Lastname / Firstname=" + Lastname + Firstname;
+            return "Lastname / Firstname=" + Firstname + " " + Lastname;
         }
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
-            {
-                return 1;
-            }
-            return Firstname.CompareTo(other.Firstname); //& Lastname.CompareTo(other.Lastname);
+            if (Object.ReferenceEquals(other, null)) { return 1;}
+
+            return Lastname.CompareTo(other.Lastname);
         }
     }
 }

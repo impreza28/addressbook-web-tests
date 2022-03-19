@@ -22,8 +22,10 @@ namespace addressbook_web_tests
             ContactData fromTable =app.Contacts.GetContactInfoFromTable(0);
             ContactData fromForm = app.Contacts.GetContactInfoFromEditForm(0);
 
-
-
+            //сравнение
+            Assert.AreEqual(fromTable,fromForm);
+            Assert.AreEqual(fromTable.Address, fromForm.Address);
+            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
 
         }
     }

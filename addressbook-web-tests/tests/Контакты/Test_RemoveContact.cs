@@ -22,7 +22,7 @@ namespace addressbook_web_tests
 
             if (!app.Contacts.ContactIsFinded())
             {   // если ни одного контакта не найдено, то создать контакт
-                ContactData newcontact = new ContactData("Test", "Test", "Test");
+                ContactData newcontact = new ContactData("Test", "Test");
                 app.Contacts.CreateContact(newcontact);
                 app.Navigator.ReturnToHomePage();
             }
