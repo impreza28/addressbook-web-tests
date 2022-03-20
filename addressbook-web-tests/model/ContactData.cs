@@ -16,6 +16,7 @@ namespace addressbook_web_tests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string allEmails;
 
         public ContactData(string firstname, string lastname)
         {
@@ -42,6 +43,8 @@ namespace addressbook_web_tests
 
         public string WorkPhone { get; set; }
 
+        public string Fax { get; set; }
+
         public string AllPhones
         {
             get
@@ -52,6 +55,7 @@ namespace addressbook_web_tests
                 }
                 else
                 {
+                    //return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(Fax)).Trim();
                     return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
                 }
             }
@@ -61,14 +65,49 @@ namespace addressbook_web_tests
             }
         }
 
-        private string CleanUp(string phone) 
-        {
-            if (phone == null || phone == "")
-            { 
-                return ""; 
+        public string Email1 { get; set; }
+
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
+
+
+        public string AllEmails 
+           {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                  return (CleanUp(Email1) + CleanUp(Email2) + CleanUp(Email3)).Trim();
+                }
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            set
+            {
+               allEmails = value;
+            }
         }
+
+        private string CleanUp(string i)
+        {
+            if (i == null || i == "")
+            {
+                return "";
+            }
+            return i.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+        //private string CleanUp(string phone) 
+        //{
+        //    if (phone == null || phone == "")
+        //    { 
+        //        return ""; 
+        //    }
+        //    return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        //}
 
 
 
