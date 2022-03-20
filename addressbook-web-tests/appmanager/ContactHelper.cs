@@ -154,7 +154,7 @@ namespace addressbook_web_tests
              {
                 Address = address,
                 AllPhones = allPhones
-             };
+            };
         }
 
         private List<ContactData> contactCache = null; //пустой кэш

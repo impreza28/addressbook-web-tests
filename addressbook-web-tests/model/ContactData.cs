@@ -46,9 +46,9 @@ namespace addressbook_web_tests
         {
             get
             {
-                if (AllPhones != null)
+                if (allPhones != null)
                 {
-                    return AllPhones;
+                    return allPhones;
                 }
                 else
                 {
