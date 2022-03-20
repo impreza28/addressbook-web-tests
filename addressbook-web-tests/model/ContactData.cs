@@ -56,7 +56,7 @@ namespace addressbook_web_tests
                 else
                 {
                     //return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(Fax)).Trim();
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(HomePhone2)).Trim();
                 }
             }
             set
@@ -90,6 +90,9 @@ namespace addressbook_web_tests
                allEmails = value;
             }
         }
+
+        //блок Secondary
+        public string HomePhone2 { get; set; }
 
         private string CleanUp(string i)
         {
