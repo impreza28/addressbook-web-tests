@@ -18,9 +18,12 @@ namespace addressbook_web_tests
         [Test]
         public void Test_ContactInformation()
         {
-            app.Navigator.OpenHomePage();
-            ContactData fromTable =app.Contacts.GetContactInfoFromTable(0);
+            ContactData fromTable = app.Contacts.GetContactInfoFromTable(0);
             ContactData fromForm = app.Contacts.GetContactInfoFromEditForm(0);
+
+
+
+
 
             //сравнение
             Assert.AreEqual(fromTable,fromForm);

@@ -15,6 +15,7 @@ namespace addressbook_web_tests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        private string allPhones;
 
         public ContactData(string firstname, string lastname)
         {
@@ -51,22 +52,22 @@ namespace addressbook_web_tests
                 }
                 else
                 {
-                    return CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone);
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
                 }
             }
             set
             {
-
+                allPhones = value;
             }
         }
 
         private string CleanUp(string phone) 
         {
-            if (phone == null)
+            if (phone == null || phone == "")
             { 
                 return ""; 
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
 
@@ -82,26 +83,30 @@ namespace addressbook_web_tests
                 return true;
             }
 
-            return ((Firstname == other.Firstname) && (Lastname == other.Lastname));
+            return Firstname == other.Firstname && Lastname == other.Lastname;
 
         }
 
 
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode() & Lastname.GetHashCode();
+            return Lastname.GetHashCode() & Firstname.GetHashCode();
         }
 
         public override string ToString() //возвращает строковое значение
         {
-            return "Lastname / Firstname=" + Firstname + " " + Lastname;
+            return "Lastname / Firstname=" + Lastname + " "+Firstname;
         }
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null)) { return 1;}
 
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
             return Lastname.CompareTo(other.Lastname);
+
         }
     }
 }

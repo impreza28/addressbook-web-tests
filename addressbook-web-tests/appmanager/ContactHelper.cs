@@ -56,9 +56,9 @@ namespace addressbook_web_tests
         }
         public void InitContactModify(int index)
         {//инициация изменения контакта (новый)
-            driver.FindElements(By.Name("entry"))[index]
-                .FindElements(By.TagName("td"))[7]
-                .FindElement(By.TagName("a")).Click();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
+            //driver.FindElements(By.XPath("//img[@alt=\'Edit\']"))[1].Click();
+
         }
 
 
@@ -120,10 +120,11 @@ namespace addressbook_web_tests
 
         public ContactData GetContactInfoFromEditForm(int index)
         {//получение данных контакта с формы контакта
-            manager.Navigator.OpenHomePage();
+            //manager.Navigator.OpenHomePage();
             InitContactModify(0); //инициируем редактирование контакта с index=0
+
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            //string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
@@ -144,18 +145,16 @@ namespace addressbook_web_tests
             manager.Navigator.OpenHomePage();
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
                                            .FindElements(By.TagName("td"));
-            string lastName = cells[1].Text;
-            string firstName = cells[2].Text;
+            string firstname = cells[1].Text;
+            string lastname = cells[2].Text;
             string address = cells[3].Text;
             string allPhones = cells[5].Text;
 
-            return new ContactData(firstName, lastName);
-
-            {
+            return new ContactData(firstname, lastname)
+             {
                 Address = address,
-                AllPhones = allPhones,
-
-            };
+                AllPhones = allPhones
+             };
         }
 
         private List<ContactData> contactCache = null; //пустой кэш
@@ -176,7 +175,7 @@ namespace addressbook_web_tests
 
                 for (int i = 0; i < TdLastname.Count(); i++)
                 {
-                    contactCache.Add(new ContactData(TdFirstname[i].Text, TdLastname[i].Text));
+                    contactCache.Add(new ContactData(TdLastname[i].Text, TdFirstname[i].Text));
                 }
             }
             return new List<ContactData>(contactCache);
