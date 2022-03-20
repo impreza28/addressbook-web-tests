@@ -52,10 +52,14 @@ namespace addressbook_web_tests
         public bool IsLoggedIn(AccountData account)
         {    //проверка отображения имени залогиненного пользователя
             return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
-                     =="(" + account.Username +")";
+                && GetLoggedUserName() == account.Username; //извлекает имя залогиненного пользователя
         }
 
+        public string GetLoggedUserName()
+        {
+            string text=driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;//в переменную text записать значение тега b 
 
+            return text.Substring(1, text.Length - 2); // обрезаем значение из тега b в начале на -1  и в конце на -1 символ
+        }
     }
 }

@@ -13,56 +13,64 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string middlename;
-        private string lastname;
+        private string allPhones;
 
-        public ContactData(string firstname, string middlename, string lastname)
+        public ContactData(string firstname, string lastname)
         {
-         this.firstname = firstname;
-         this.middlename = middlename="";
-         this.lastname = lastname;
+            Firstname = firstname;
+            //Middlename = middlename;
+            Lastname = lastname;
 
         }
-        public ContactData(string firstname)
-        {
-            this.firstname = firstname;
-        }
-        public string Firstname
-        {
-            get
-            {
-                return firstname; 
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
-        public string Lastname
+        //public ContactData(string firstname)
+        //{
+        //    Firstname = firstname;
+        //}
+        public string Firstname { get; set; }
+
+        public string Middlename { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+
+        public string AllPhones
         {
             get
             {
-                return lastname;
+                if (AllPhones != null)
+                {
+                    return AllPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
             }
             set
             {
-                lastname = value;
+                allPhones = value;
             }
         }
+
+        private string CleanUp(string phone) 
+        {
+            if (phone == null || phone == "")
+            { 
+                return ""; 
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+
 
         public bool Equals(ContactData other) //реализация сравнения 
         {
@@ -75,27 +83,42 @@ namespace addressbook_web_tests
                 return true;
             }
 
-            return ((Firstname == other.Firstname) && (Lastname == other.Lastname));
+            return Firstname == other.Firstname && Lastname == other.Lastname;
+
         }
 
 
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode() & Lastname.GetHashCode();
+            return Lastname.GetHashCode() & Firstname.GetHashCode();
         }
 
         public override string ToString() //возвращает строковое значение
         {
-            return "Lastname / Firstname=" + Lastname + Firstname;
+            return "Lastname / Firstname=" + Lastname + " "+Firstname;
         }
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
-            {
-                return 1;
-            }
-            return Firstname.CompareTo(other.Firstname); //& Lastname.CompareTo(other.Lastname);
+                if (Object.ReferenceEquals(other, null))
+                {
+                    return 1;
+                }
+
+                int i = Lastname.CompareTo(other.Lastname);
+                if (i != 0)
+                {
+                    return i;
+                }
+                else
+                {
+                    return Firstname.CompareTo(other.Firstname);
+                }
+
+                //  int i= Firstname.CompareTo(other.Firstname); //& Lastname.CompareTo(other.Lastname);
+                // return i;
+
+
         }
     }
 }

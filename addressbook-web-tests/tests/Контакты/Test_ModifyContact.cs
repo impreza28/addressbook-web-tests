@@ -21,7 +21,7 @@ namespace addressbook_web_tests
 
             if (!app.Contacts.ContactIsFinded()) // если ни одного контакта не найдено, то создать контакт
             {   
-                ContactData newContact = new ContactData("Test", "Test", "Test");
+                ContactData newContact = new ContactData("Test", "Test");
                 app.Contacts.CreateContact(newContact);
                 app.Navigator.ReturnToHomePage();
             }
@@ -29,7 +29,7 @@ namespace addressbook_web_tests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList(); //список текущих контактов 
 
-            ContactData updContact = new ContactData("Test1", "Test1", "Test1");
+            ContactData updContact = new ContactData("Test1", "Test1");
             app.Contacts.SelectCheckboxContact(0)
                         .ModifyContact(updContact); //изменить контакт
             app.Navigator.ReturnToHomePage();

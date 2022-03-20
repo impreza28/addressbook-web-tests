@@ -21,9 +21,8 @@ namespace addressbook_web_tests
             app.Navigator.OpenHomePage();
             List<ContactData> oldContacts = app.Contacts.GetContactList(); //список контактов
 
-            ContactData contact = new ContactData("1");
+            ContactData contact = new ContactData("1", "C");
             contact.Middlename = "2";
-            contact.Lastname = "C";
 
             app.Contacts.CreateContact(contact);
             app.Navigator.ReturnToHomePage();
