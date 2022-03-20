@@ -15,15 +15,21 @@ namespace addressbook_web_tests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        private string allNames;
         private string allPhones;
         private string allEmails;
         private string allDetails;
+        private string allBirthday;
+        private string allAnniversary;
 
 
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
             Lastname = lastname;
+        }
+        public ContactData()
+        {
         }
         //блок основной информации о контакте
         public string Firstname { get; set; }
@@ -59,6 +65,24 @@ namespace addressbook_web_tests
         public string Notes { get; set; }
 
 
+        public string AllNames
+        {
+            get
+            {
+                if (allNames != null)
+                {
+                    return allNames;
+                }
+                else
+                {
+                    return (Firstname + Middlename + Lastname).Trim();
+                }
+            }
+            set
+            {
+                allNames = value;
+            }
+        }
 
         public string AllPhones
         {
@@ -70,7 +94,6 @@ namespace addressbook_web_tests
                 }
                 else
                 {
-                    //return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(Fax)).Trim();
                     return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(HomePhone2)).Trim();
                 }
             }
@@ -99,8 +122,81 @@ namespace addressbook_web_tests
                allEmails = value;
             }
         }
+        public string AllBirthday
+        {
+            get
+            {
+                if (allBirthday != null)
+                {
+                    return allBirthday;
+                }
+                else
+                {
+                    return (CleanUpDetails(BirthdayDay) + CleanUpDetails(BirthdayMonth) + CleanUpDetails(BirthdayYear)).Trim();
+                }
+            }
+            set
+            {
+                allBirthday = value;
+            }
+        }
 
-
+        public string AllAnniversary
+        {
+            get
+            {
+                if (allAnniversary != null)
+                {
+                    return allAnniversary;
+                }
+                else
+                {
+                    return (CleanUpDetails(AnniversaryDay) + CleanUpDetails(AnniversaryMonth) + CleanUpDetails(AnniversaryYear)).Trim();
+                }
+            }
+            set
+            {
+                allAnniversary = value;
+            }
+        }
+        public string AllDetails
+        {
+           get
+            {
+                if (allDetails != null)
+                {
+                    return allDetails;
+               }
+               else
+               {
+                    return (CleanUpDetails(Firstname) + 
+                           CleanUpDetails(Middlename) + 
+                           CleanUpDetails(Lastname) + 
+                           CleanUpDetails(Nickname) + 
+                           CleanUpDetails(Title) +
+                           CleanUpDetails(Company) + 
+                           CleanUpDetails(Address) +
+                           CleanUpDetails(HomePhone) +
+                           CleanUpDetails(MobilePhone) +
+                           CleanUpDetails(WorkPhone) +
+                           CleanUpDetails(Fax) +
+                           CleanUpDetails(Email1) +
+                           CleanUpDetails(Email2) +
+                           CleanUpDetails(Email3) +
+                           CleanUpDetails(Homepage) +
+                           CleanUpDetails(AllBirthday) +
+                           CleanUpDetails(AllAnniversary) +
+                           CleanUpDetails(Address2) +
+                           CleanUpDetails(HomePhone2) +
+                           CleanUpDetails(Notes))
+                           .Trim();
+               }
+           }
+          set
+            {
+                allDetails = value;
+            }
+        }
 
 
         private string CleanUp(string i)
@@ -112,6 +208,14 @@ namespace addressbook_web_tests
             return i.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
+        private string CleanUpDetails(string i)
+        {
+            if (i == null || i == "")
+            {
+                return "";
+            }
+            return i.Replace(" ", "") + "\r\n";
+        }
 
         public bool Equals(ContactData other) //реализация сравнения 
         {

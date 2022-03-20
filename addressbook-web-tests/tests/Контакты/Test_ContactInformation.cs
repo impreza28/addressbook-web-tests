@@ -37,10 +37,11 @@ namespace addressbook_web_tests
 
 
             //сравнение
-            Assert.AreEqual(fromDetails, fromForm);
-            Assert.AreEqual(fromDetails.Address, fromForm.Address);
-            Assert.AreEqual(fromDetails.AllEmails, fromForm.AllEmails);
-            Assert.AreEqual(fromDetails.AllPhones, fromForm.AllPhones);
+            //Assert.AreEqual(fromDetails, fromForm);
+            // Assert.AreEqual(fromDetails.Address, fromForm.Address);
+            // Assert.AreEqual(fromDetails.AllEmails, fromForm.AllEmails);
+            // Assert.AreEqual(fromDetails.AllPhones, fromForm.AllPhones);
+            Assert.AreEqual(fromDetails.AllNames, fromForm.AllNames);
         }
     }
 }

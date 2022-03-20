@@ -117,6 +117,11 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public ContactHelper OpenDetailsContact(int index)
+        {
+            driver.FindElement(By.XPath("//img[@alt='Details']")).Click();
+            return this;
+        }
 
         public ContactData GetContactInfoFromEditForm(int index)
         {//получение данных контакта с формы контакта
@@ -152,6 +157,7 @@ namespace addressbook_web_tests
             string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
             string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
+            string allNames = firstName + middleName + lastName;
 
             return new ContactData(firstName, lastName)
             {
@@ -182,7 +188,10 @@ namespace addressbook_web_tests
                 //блок Secondary
                 Address2 = address2,
                 HomePhone2 = homePhone2,
-                Notes = notes
+                Notes = notes,
+
+                AllNames = allNames
+
             };
         }
 
@@ -208,17 +217,55 @@ namespace addressbook_web_tests
         public ContactData GetContactInfoFromDetails()
         {
             manager.Navigator.OpenHomePage();
-            OpenDetailsContact();
+            OpenDetailsContact(0);
+
+            string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).GetAttribute("b[1]");
 
 
-
+            return new ContactData()
+            {
+             AllNames = allNames
+            };
         }
 
-        public ContactHelper OpenDetailsContact()
-        {
-            driver.FindElement(By.XPath("//img[@alt='Details']")).Click();
-            return this;
-        }
+
+
+        //// блок основной информации о контакте
+        //string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
+        //string title = driver.FindElement(By.XPath("//div[@id='content']/i[1]")).Text;
+        //string nickname = driver.FindElement(By.XPath("//div[@id='content']/br[1]")).Text;
+        //string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+
+
+        //string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+
+
+        //public ContactData GetContactInfoFromDetails()
+        //{
+        //    manager.Navigator.OpenHomePage();
+        //    OpenDetailsContact();
+
+        //    // блок основной информации о контакте
+        //    string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
+        //    string title = driver.FindElement(By.XPath("//div[@id='content']/i[1]")).Text;
+        //    string nickname = driver.FindElement(By.XPath("//div[@id='content']/br[1]")).Text;
+        //    string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+
+        //    string title = driver.FindElement(By.XPath("//div[@id='content']/i[1]")).Text;
+
+        //    string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+
+        //    return new ContactData();
+        //    //{
+        //    //    AllNames = allNames,
+        //    //    AllPhones = allPhones,
+        //    //    AllEmails = allEmails
+        //    //};
+
+        //}
+
 
         private List<ContactData> contactCache = null; //пустой кэш
 
