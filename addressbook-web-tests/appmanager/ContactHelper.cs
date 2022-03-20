@@ -139,7 +139,7 @@ namespace addressbook_web_tests
 
 
             return new ContactData(firstName, lastName)
-            {
+            { 
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
