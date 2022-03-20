@@ -100,12 +100,24 @@ namespace addressbook_web_tests
 
         public int CompareTo(ContactData other)
         {
+                if (Object.ReferenceEquals(other, null))
+                {
+                    return 1;
+                }
 
-            if (Object.ReferenceEquals(other, null))
-            {
-                return 1;
-            }
-            return Lastname.CompareTo(other.Lastname);
+                int i = Lastname.CompareTo(other.Lastname);
+                if (i != 0)
+                {
+                    return i;
+                }
+                else
+                {
+                    return Firstname.CompareTo(other.Firstname);
+                }
+
+                //  int i= Firstname.CompareTo(other.Firstname); //& Lastname.CompareTo(other.Lastname);
+                // return i;
+
 
         }
     }

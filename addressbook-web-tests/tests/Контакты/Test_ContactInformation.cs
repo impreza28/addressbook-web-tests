@@ -15,15 +15,11 @@ namespace addressbook_web_tests
     public class ContactInformation : AuthTestBase
     {
 
-        [Test]
+     [Test]
         public void Test_ContactInformation()
         {
             ContactData fromTable = app.Contacts.GetContactInfoFromTable(0);
             ContactData fromForm = app.Contacts.GetContactInfoFromEditForm(0);
-
-
-
-
 
             //сравнение
             Assert.AreEqual(fromTable,fromForm);
