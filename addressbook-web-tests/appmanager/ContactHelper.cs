@@ -123,33 +123,66 @@ namespace addressbook_web_tests
             //manager.Navigator.OpenHomePage();
             InitContactModify(0); //инициируем редактирование контакта с index=0
 
+            // блок основной информации о контакте
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-
+            //блок Telephone
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
             string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
-            string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
-
+            //блок емейлы +ДР
             string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string birthdayDay = driver.FindElement(By.Name("bday")).GetAttribute("value");
+            string birthdayMonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
+            string birthdayYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+            string anniversaryDay = driver.FindElement(By.Name("aday")).GetAttribute("value");
+            string anniversaryMonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+            string anniversaryYear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+            //блок Secondary
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
 
             return new ContactData(firstName, lastName)
-            { 
+            {
+                //блок основной информации о контакте
+                Middlename = middleName,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
                 Address = address,
+
+                //блок Telephone
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                HomePhone2 = homePhone2,
                 Fax = fax,
+                //блок емейлы +ДР
                 Email1 = email1,
                 Email2 = email2,
-                Email3 = email3
+                Email3 = email3,
+                Homepage = homepage,
+                BirthdayDay = birthdayDay,
+                BirthdayMonth = birthdayMonth,
+                BirthdayYear = birthdayYear,
+                AnniversaryDay = anniversaryDay,
+                AnniversaryMonth = anniversaryMonth,
+                AnniversaryYear = anniversaryYear,
+
+                //блок Secondary
+                Address2 = address2,
+                HomePhone2 = homePhone2,
+                Notes = notes
             };
         }
 
@@ -170,6 +203,21 @@ namespace addressbook_web_tests
                 AllPhones = allPhones,
                 AllEmails = allEmails
             };
+        }
+
+        public ContactData GetContactInfoFromDetails()
+        {
+            manager.Navigator.OpenHomePage();
+            OpenDetailsContact();
+
+
+
+        }
+
+        public ContactHelper OpenDetailsContact()
+        {
+            driver.FindElement(By.XPath("//img[@alt='Details']")).Click();
+            return this;
         }
 
         private List<ContactData> contactCache = null; //пустой кэш

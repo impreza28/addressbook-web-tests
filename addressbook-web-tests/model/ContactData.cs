@@ -17,33 +17,48 @@ namespace addressbook_web_tests
     {
         private string allPhones;
         private string allEmails;
+        private string allDetails;
+
 
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
-            //Middlename = middlename;
             Lastname = lastname;
-
         }
-        //public ContactData(string firstname)
-        //{
-        //    Firstname = firstname;
-        //}
+        //блок основной информации о контакте
         public string Firstname { get; set; }
-
         public string Middlename { get; set; }
-
         public string Lastname { get; set; }
-
+        public string Nickname { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
         public string Address { get; set; }
 
+
+        //блок Telephone
         public string HomePhone { get; set; }
-
         public string MobilePhone { get; set; }
-
         public string WorkPhone { get; set; }
-
         public string Fax { get; set; }
+
+        //блок емейлы +ДР
+        public string Email1 { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
+        public string Homepage { get; set; }
+        public string BirthdayDay { get; set; }
+        public string BirthdayMonth { get; set; }
+        public string BirthdayYear { get; set; }
+        public string AnniversaryDay { get; set; }
+        public string AnniversaryMonth { get; set; }
+        public string AnniversaryYear { get; set; }
+
+        //блок Secondary
+        public string Address2 { get; set; }
+        public string HomePhone2 { get; set; }
+        public string Notes { get; set; }
+
+
 
         public string AllPhones
         {
@@ -65,12 +80,6 @@ namespace addressbook_web_tests
             }
         }
 
-        public string Email1 { get; set; }
-
-        public string Email2 { get; set; }
-
-        public string Email3 { get; set; }
-
 
         public string AllEmails 
            {
@@ -91,8 +100,8 @@ namespace addressbook_web_tests
             }
         }
 
-        //блок Secondary
-        public string HomePhone2 { get; set; }
+
+
 
         private string CleanUp(string i)
         {
@@ -102,16 +111,6 @@ namespace addressbook_web_tests
             }
             return i.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
-
-        //private string CleanUp(string phone) 
-        //{
-        //    if (phone == null || phone == "")
-        //    { 
-        //        return ""; 
-        //    }
-        //    return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
-        //}
-
 
 
         public bool Equals(ContactData other) //реализация сравнения 
