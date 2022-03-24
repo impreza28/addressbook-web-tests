@@ -34,7 +34,7 @@ namespace addressbook_web_tests
         [Test, TestCaseSource("RandomGroupDataProvider")]
 
 
-    public void Test_CreateGroup()
+        public void Test_CreateGroup()
         {
             GroupData group = new GroupData("a");
             group.Header = "c";

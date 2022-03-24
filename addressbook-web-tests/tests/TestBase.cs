@@ -33,7 +33,7 @@ namespace addressbook_web_tests
         {
 
             int l=Convert.ToInt32(rnd.NextDouble()*max);
-            StringBuilder builder=new StringBuilder();
+            StringBuilder builder=new StringBuilder(); 
 
             for(int i=0;i<l;i++)
             {
