@@ -21,6 +21,7 @@ namespace addressbook_web_tests
         private string allDetails;
         private string allBirthday;
         private string allAnniversary;
+        private string allPhonesDetails;
 
 
         public ContactData(string firstname, string lastname)
@@ -71,11 +72,11 @@ namespace addressbook_web_tests
             {
                 if (allNames != null)
                 {
-                    return allNames;
+                    return CleanUp(allNames);
                 }
                 else
                 {
-                    return (Firstname + Middlename + Lastname).Trim();
+                    return (CleanUp(Firstname) + CleanUp(Middlename) + CleanUp(Lastname)).Trim();
                 }
             }
             set
@@ -100,6 +101,25 @@ namespace addressbook_web_tests
             set
             {
                 allPhones = value;
+            }
+        }
+
+        public string AllPhonesDetails
+        {
+            get
+            {
+                if (allPhonesDetails != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(Fax)).Trim();
+                }
+            }
+            set
+            {
+                allPhonesDetails = value;
             }
         }
 
@@ -165,7 +185,7 @@ namespace addressbook_web_tests
             {
                 if (allDetails != null)
                 {
-                    return allDetails;
+                    return CleanUpDetails(allDetails);
                }
                else
                {
@@ -214,7 +234,10 @@ namespace addressbook_web_tests
             {
                 return "";
             }
-            return i.Replace(" ", "") + "\r\n";
+            //return i.Replace(" ", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").Replace("F:", "")
+                //.Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "").Replace("P:", "") + "\r\n";
+            return i.Replace(" ", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").Replace("F:", "")
+                .Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "").Replace("P:", "").Replace(".", "").Replace("\r", "").Replace("\n", "");
         }
 
         public bool Equals(ContactData other) //реализация сравнения 
