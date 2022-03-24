@@ -15,8 +15,22 @@ namespace addressbook_web_tests
     public class CreateContact: AuthTestBase
     {
 
-    [Test]
-    public void Test_CreateContact()
+        public static IEnumerable<ContactData> RandomGroupDataProvider()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contacts.Add(new ContactData(GenerateRandomString(30))
+                {
+                    Lastname = GenerateRandomString(100)
+                });
+            }
+            return contacts;
+        }
+
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void Test_CreateContact()
         {
             app.Navigator.OpenHomePage();
             List<ContactData> oldContacts = app.Contacts.GetContactList(); //список контактов

@@ -32,6 +32,10 @@ namespace addressbook_web_tests
         public ContactData()
         {
         }
+        public ContactData(string firstname)
+        {
+            Firstname = firstname;
+        }
         //блок основной информации о контакте
         public string Firstname { get; set; }
         public string Middlename { get; set; }
@@ -263,7 +267,7 @@ namespace addressbook_web_tests
 
         public override string ToString() //возвращает строковое значение
         {
-            return "Lastname / Firstname=" + Lastname + " "+Firstname;
+            return "Lastname="+ " "+ Lastname +" "+ "Firstname=" +" "+ Firstname;
         }
 
         public int CompareTo(ContactData other)

@@ -15,8 +15,26 @@ namespace addressbook_web_tests
     public class CreateGroup: AuthTestBase
     {
 
-    [Test]
-    public void Test_CreateGroup()
+
+        public static IEnumerable<GroupData> RandomGroupDataProvider() 
+        {
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++) 
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                { 
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+
+
+        public void Test_CreateGroup()
         {
             GroupData group = new GroupData("a");
             group.Header = "c";
@@ -36,25 +54,25 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldGroups, newGroups); //проверка списка
         }
 
-        [Test]
-        // тест-кейс создани€ группы с пустыми параметрами
-        public void Test_EmptyCreateGroup()
-        {
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до создани€ новой
+        //[Test]
+        //// тест-кейс создани€ группы с пустыми параметрами
+        //public void Test_EmptyCreateGroup()
+        //{
+        //    List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до создани€ новой
 
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
-            app.Groups.CreateGroup(group);
-            app.Navigator.ReturnToGroupsPage();
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); //проверка списка
+        //    GroupData group = new GroupData("");
+        //    group.Header = "";
+        //    group.Footer = "";
+        //    app.Groups.CreateGroup(group);
+        //    app.Navigator.ReturnToGroupsPage();
+        //    Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); //проверка списка
 
-            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создани€ новой
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldGroups, newgroups); //проверка списка (число групп увеличилось на 1)
-        }
+        //    List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создани€ новой
+        //    oldGroups.Add(group);
+        //    oldGroups.Sort();
+        //    newgroups.Sort();
+        //    Assert.AreEqual(oldGroups, newgroups); //проверка списка (число групп увеличилось на 1)
+        //}
 
         [Test]
         // тест-кейс создани€ группы с пустыми параметрами
