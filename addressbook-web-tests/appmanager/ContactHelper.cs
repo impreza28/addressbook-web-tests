@@ -166,7 +166,7 @@ namespace addressbook_web_tests
 
 
             //string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday+ allAnniversary + address2 + homePhone2+ notes).ToString();
-            string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday + allAnniversary + address2 + homePhone2 + notes).ToString();
+            string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday + allAnniversary + address2 + homePhone2 + notes).ToLower();
 
 
             return new ContactData()
@@ -232,10 +232,10 @@ namespace addressbook_web_tests
             manager.Navigator.OpenHomePage();
             OpenDetailsContact(0);
 
-           // string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
+            // string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
 
-            string allDetails = driver.FindElement(By.XPath("//div[@id='content']")).Text;
-
+            //string allDetails = (driver.FindElement(By.XPath("//div[@id='content']")).Text).ToLower();
+            string allDetails = (driver.FindElement(By.XPath("//div[@id='content']")).Text).ToLower();
 
             return new ContactData()
             {
