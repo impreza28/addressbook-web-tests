@@ -145,7 +145,7 @@ namespace addressbook_web_tests
             string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-            string homepage = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
             string birthdayDay = driver.FindElement(By.Name("bday")).GetAttribute("value");
             string birthdayMonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
             string birthdayYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
@@ -157,10 +157,22 @@ namespace addressbook_web_tests
             string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
             string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
-            string allNames = firstName + middleName + lastName;
 
-            return new ContactData(firstName, lastName)
+            string allNames = firstName + middleName + lastName;
+            string allPhonesDetails = homePhone + mobilePhone + workPhone+fax;
+            string allEmails = email1 + email2 + email3;
+            string allBirthday = birthdayDay + birthdayMonth + birthdayYear;
+            string allAnniversary = anniversaryDay + anniversaryMonth + anniversaryYear;
+
+
+            //string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday+ allAnniversary + address2 + homePhone2+ notes).ToString();
+            string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday + allAnniversary + address2 + homePhone2 + notes).ToString();
+
+
+            return new ContactData()
             {
+                Firstname = firstName,
+                Lastname = lastName,
                 //блок основной информации о контакте
                 Middlename = middleName,
                 Nickname = nickname,
@@ -190,8 +202,9 @@ namespace addressbook_web_tests
                 HomePhone2 = homePhone2,
                 Notes = notes,
 
-                AllNames = allNames
-
+                AllNames = allNames,
+                AllPhonesDetails = allPhonesDetails,
+                AllDetails= allDetails
             };
         }
 
@@ -219,12 +232,14 @@ namespace addressbook_web_tests
             manager.Navigator.OpenHomePage();
             OpenDetailsContact(0);
 
-            string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).GetAttribute("b[1]");
+           // string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
+
+            string allDetails = driver.FindElement(By.XPath("//div[@id='content']")).Text;
 
 
             return new ContactData()
             {
-             AllNames = allNames
+                AllDetails = allDetails
             };
         }
 
