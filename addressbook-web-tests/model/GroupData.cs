@@ -29,6 +29,9 @@ namespace addressbook_web_tests
         {
             Name = name;
         }
+
+        public GroupData() {}
+
         public string Name { get; set; }
 
         public string Header {get; set;}
@@ -55,7 +58,7 @@ namespace addressbook_web_tests
         }
         public override string ToString() //возвращает строковое значение
         {
-            return "name=" +Name;
+            return "name=" + Name + ", header=" + Header + ", footer=" + Footer;
         }
 
         public int CompareTo(GroupData other) 
