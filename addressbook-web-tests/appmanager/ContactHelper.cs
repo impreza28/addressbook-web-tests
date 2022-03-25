@@ -157,16 +157,17 @@ namespace addressbook_web_tests
             string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
             string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
+            //переменные для allDetails
+            string allNames = firstName + middleName + lastName.Trim();
+            string allPhonesDetails = " "+ homePhone + "\r" + "\n" + " "+mobilePhone + "\r" + "\n" + " "+ workPhone + "\r" + "\n" + " "+fax + "\r" + "\n" + "\r" + "\n";
+            string allEmails = email1 + "\r" + "\n" + email2 + "\r" + "\n" + email3+"\r" + "\n" + "\r" + "\n";
+            string allBirthday = " "+ birthdayDay + " "+ birthdayMonth + " "+birthdayYear;
+            string allAnniversary = " "+anniversaryDay + " "+anniversaryMonth + " "+anniversaryYear;
 
-            string allNames = firstName + middleName + lastName;
-            string allPhonesDetails = homePhone + mobilePhone + workPhone+fax;
-            string allEmails = email1 + email2 + email3;
-            string allBirthday = birthdayDay + birthdayMonth + birthdayYear;
-            string allAnniversary = anniversaryDay + anniversaryMonth + anniversaryYear;
-
-
-            //string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday+ allAnniversary + address2 + homePhone2+ notes).ToString();
-            string allDetails = (allNames + nickname + title + company + address + allPhonesDetails + allEmails + homepage + allBirthday + allAnniversary + address2 + homePhone2 + notes).ToLower();
+            //строка для сравления с детальной информацией о контакте
+            string allDetails = (allNames +"\r"+"\n"+nickname + "\r" + "\n"+ title + "\r" + "\n" + company + "\r" + "\n" + address + "\r" + "\n" + "\r" + "\n" + allPhonesDetails + allEmails 
+                + homepage + "\r" + "\n" + "\r" + "\n" + allBirthday + "\r" + "\n" + allAnniversary + "\r" + "\n" + "\r" + "\n" + address2 + "\r" + "\n" + "\r" + "\n" 
+                + " "+homePhone2 + "\r" + "\n" + "\r" + "\n" + notes).ToLower();
 
 
             return new ContactData()

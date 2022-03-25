@@ -238,10 +238,10 @@ namespace addressbook_web_tests
             {
                 return "";
             }
-            //return i.Replace(" ", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").Replace("F:", "")
-                //.Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "").Replace("P:", "") + "\r\n";
-            return i.Replace(" ", "").Replace("h:", "").Replace("m:", "").Replace("w:", "").Replace("f:", "")
-                .Replace("homepage:", "").Replace("birthday", "").Replace("anniversary", "").Replace("p:", "").Replace(".", "").Replace("\r", "").Replace("\n", "");
+            //return i.Replace(" ", "").Replace("h:", "").Replace("m:", "").Replace("w:", "").Replace("f:", "")
+            //  .Replace("homepage:", "").Replace("birthday", "").Replace("anniversary", "").Replace("p:", "").Replace(".", "").Replace("\r", "").Replace("\n", "");
+            return i.Replace("h:", "").Replace("m:", "").Replace("w:", "").Replace("f:", "")
+              .Replace("homepage:", "").Replace("birthday", "").Replace("anniversary", "").Replace("p:", "").Replace(".", "");
         }
 
         public bool Equals(ContactData other) //реализация сравнения 
