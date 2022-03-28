@@ -66,7 +66,7 @@ namespace addressbook_test_data_gererators
 
         static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
-            writer.Write(JsonConvert.SerializeObject(groups));
+            writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
     }
 }
