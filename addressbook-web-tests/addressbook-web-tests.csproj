@@ -23,4 +23,10 @@
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.30.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="tests\Группы\groups.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
