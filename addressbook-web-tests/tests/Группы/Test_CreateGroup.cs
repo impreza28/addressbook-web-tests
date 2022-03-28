@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -31,7 +33,7 @@ namespace addressbook_web_tests
             return groups;
         }
 
-        public static IEnumerable<GroupData> GroupDataFromFile() 
+        public static IEnumerable<GroupData> GroupDataFromCsvFile() 
         {
             List<GroupData> groups = new List<GroupData>();
             string[] lines = File.ReadAllLines(@"groups.csv");
@@ -47,9 +49,14 @@ namespace addressbook_web_tests
             }
             return groups;
         }
+        public static IEnumerable<GroupData> GroupDataFromXMLFile()
+        {
 
+            return (List<GroupData>) 
+                new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"groups.xml"));
+        }
 
-        [Test, TestCaseSource("GroupDataFromFile")]
+        [Test, TestCaseSource("GroupDataFromXMLFile")]
 
 
         public void Test_CreateGroup(GroupData group)
