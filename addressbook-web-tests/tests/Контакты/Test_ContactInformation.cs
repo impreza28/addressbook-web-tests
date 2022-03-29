@@ -15,34 +15,28 @@ namespace addressbook_web_tests
     public class ContactInformation : AuthTestBase
     {
 
-    [Test]
+        [Test]
         public void Test_ContactInformation()
         {
             ContactData fromTable = app.Contacts.GetContactInfoFromTable(0);
             ContactData fromForm = app.Contacts.GetContactInfoFromEditForm(0);
 
             //сравнение
-            Assert.AreEqual(fromTable,fromForm);
+            Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
         }
 
-
-    [Test]
-        public void Test_ContactInformationDetails()
+        [Test]
+        public void Test_ContactInfoDetails()
         {
-            ContactData fromForm = app.Contacts.GetContactInfoFromEditForm(0);
-            ContactData fromDetails = app.Contacts.GetContactInfoFromDetails();
+            ContactData allInfoEditForm = app.Contacts.GetContactInfoFromEditForm(0);
+            string allDetails = app.Contacts.GetContactInfoFromDetails(0);
+            string stringEditForm = app.Contacts.GetContactStringFromDetails(allInfoEditForm);
 
-            
-            //сравнение
-            //Assert.AreEqual(fromDetails, fromForm);
-            // Assert.AreEqual(fromDetails.Address, fromForm.Address);
-            // Assert.AreEqual(fromDetails.AllEmails, fromForm.AllEmails);
-            // Assert.AreEqual(fromDetails.AllPhones, fromForm.AllPhones);
-            //Assert.AreEqual(fromDetails.AllNames, fromForm.AllNames);
-            Assert.AreEqual(fromDetails.AllDetails, fromForm.AllDetails);
+
+            Assert.AreEqual(allDetails, stringEditForm);
         }
     }
 }
