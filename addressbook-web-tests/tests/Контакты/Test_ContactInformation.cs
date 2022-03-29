@@ -35,6 +35,7 @@ namespace addressbook_web_tests
             string allDetails = app.Contacts.GetContactInfoFromDetails(0);
             string stringEditForm = app.Contacts.GetContactStringFromDetails(allInfoEditForm);
 
+
             Assert.AreEqual(allDetails, stringEditForm);
         }
     }
