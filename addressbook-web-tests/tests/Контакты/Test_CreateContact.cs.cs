@@ -8,6 +8,10 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace addressbook_web_tests
 {
@@ -28,15 +32,26 @@ namespace addressbook_web_tests
             return contacts;
         }
 
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            return (List<ContactData>)new XmlSerializer(typeof(List<ContactData>)).
+                Deserialize(new StreamReader(@"contacts.xml"));
+        }
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(@"contacts.json"));
+        }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
-        public void Test_CreateContact()
+
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
+        public void Test_CreateContact(ContactData contact)
         {
             app.Navigator.OpenHomePage();
             List<ContactData> oldContacts = app.Contacts.GetContactList(); //список контактов
 
-            ContactData contact = new ContactData("1", "C");
-            contact.Middlename = "2";
+            //ContactData contact = new ContactData("1", "C");
+            //contact.Middlename = "2";
 
             app.Contacts.CreateContact(contact);
             app.Navigator.ReturnToHomePage();
