@@ -117,7 +117,7 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public ContactHelper OpenDetailsContact(int index)
+        public ContactHelper InitOpenDetailsContact(int index)
         {
             driver.FindElement(By.XPath("//img[@alt='Details']")).Click();
             return this;
@@ -132,81 +132,121 @@ namespace addressbook_web_tests
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
-            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
-            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
-            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+           // string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            //string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            //string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
             //блок Telephone
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            //string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
             //блок емейлы +ДР
             string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
-            string birthdayDay = driver.FindElement(By.Name("bday")).GetAttribute("value");
-            string birthdayMonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
-            string birthdayYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
-            string anniversaryDay = driver.FindElement(By.Name("aday")).GetAttribute("value");
-            string anniversaryMonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
-            string anniversaryYear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+            //string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+            //string birthdayDay = driver.FindElement(By.Name("bday")).GetAttribute("value");
+            //string birthdayMonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
+            //string birthdayYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+            //string anniversaryDay = driver.FindElement(By.Name("aday")).GetAttribute("value");
+            //string anniversaryMonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+            //string anniversaryYear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
             //блок Secondary
-            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
-            string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
-            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
+            //string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            //string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            //string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
             //переменные для allDetails
-            string allNames = firstName + middleName + lastName.Trim();
-            string allPhonesDetails = " "+ homePhone + "\r" + "\n" + " "+mobilePhone + "\r" + "\n" + " "+ workPhone + "\r" + "\n" + " "+fax + "\r" + "\n" + "\r" + "\n";
-            string allEmails = email1 + "\r" + "\n" + email2 + "\r" + "\n" + email3+"\r" + "\n" + "\r" + "\n";
-            string allBirthday = " "+ birthdayDay + " "+ birthdayMonth + " "+birthdayYear;
-            string allAnniversary = " "+anniversaryDay + " "+anniversaryMonth + " "+anniversaryYear;
+            //string allNames = firstName + middleName + lastName.Trim();
+            //string allPhonesDetails = " "+ homePhone + "\r" + "\n" + " "+mobilePhone + "\r" + "\n" + " "+ workPhone + "\r" + "\n" + " "+fax + "\r" + "\n" + "\r" + "\n";
+            //string allEmails = email1 + "\r" + "\n" + email2 + "\r" + "\n" + email3+"\r" + "\n" + "\r" + "\n";
+            //string allBirthday = " "+ birthdayDay + " "+ birthdayMonth + " "+birthdayYear;
+            //string allAnniversary = " "+anniversaryDay + " "+anniversaryMonth + " "+anniversaryYear;
 
-            //строка для сравления с детальной информацией о контакте
-            string allDetails = (allNames +"\r"+"\n"+nickname + "\r" + "\n"+ title + "\r" + "\n" + company + "\r" + "\n" + address + "\r" + "\n" + "\r" + "\n" + allPhonesDetails + allEmails 
-                + homepage + "\r" + "\n" + "\r" + "\n" + allBirthday + "\r" + "\n" + allAnniversary + "\r" + "\n" + "\r" + "\n" + address2 + "\r" + "\n" + "\r" + "\n" 
-                + " "+homePhone2 + "\r" + "\n" + "\r" + "\n" + notes).ToLower();
+            ////строка для сравления с детальной информацией о контакте
+            //string allDetails = (allNames +"\r"+"\n"+nickname + "\r" + "\n"+ title + "\r" + "\n" + company + "\r" + "\n" + address + "\r" + "\n" + "\r" + "\n" + allPhonesDetails + allEmails 
+            //    + homepage + "\r" + "\n" + "\r" + "\n" + allBirthday + "\r" + "\n" + allAnniversary + "\r" + "\n" + "\r" + "\n" + address2 + "\r" + "\n" + "\r" + "\n" 
+            //    + " "+homePhone2 + "\r" + "\n" + "\r" + "\n" + notes).ToLower();
 
 
             return new ContactData()
             {
                 Firstname = firstName,
                 Lastname = lastName,
-                //блок основной информации о контакте
                 Middlename = middleName,
-                Nickname = nickname,
-                Company = company,
-                Title = title,
+                //блок основной информации о контакте
+                // Nickname = nickname,
+                // Company = company,
+                // Title = title,
                 Address = address,
 
                 //блок Telephone
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                Fax = fax,
+                //Fax = fax,
                 //блок емейлы +ДР
                 Email1 = email1,
                 Email2 = email2,
-                Email3 = email3,
-                Homepage = homepage,
-                BirthdayDay = birthdayDay,
-                BirthdayMonth = birthdayMonth,
-                BirthdayYear = birthdayYear,
-                AnniversaryDay = anniversaryDay,
-                AnniversaryMonth = anniversaryMonth,
-                AnniversaryYear = anniversaryYear,
+                Email3 = email3
+                //Homepage = homepage,
+                //BirthdayDay = birthdayDay,
+                //BirthdayMonth = birthdayMonth,
+                //BirthdayYear = birthdayYear,
+                //AnniversaryDay = anniversaryDay,
+                //AnniversaryMonth = anniversaryMonth,
+                //AnniversaryYear = anniversaryYear,
 
-                //блок Secondary
-                Address2 = address2,
-                HomePhone2 = homePhone2,
-                Notes = notes,
+                ////блок Secondary
+                //Address2 = address2,
+                //HomePhone2 = homePhone2,
+                //Notes = notes,
 
-                AllNames = allNames,
-                AllPhonesDetails = allPhonesDetails,
-                AllDetails= allDetails
+                //AllNames = allNames,
+                //AllPhonesDetails = allPhonesDetails,
+                //AllDetails= allDetails
             };
+        }
+
+        public string GetContactStringFromDetails(ContactData allDetails)
+        {
+            string allNames = allDetails.Firstname + allDetails.Middlename + (allDetails.Lastname).Trim();
+            string allPhones = null;
+            string allEmails = null;
+
+            if (allDetails.Address != null) 
+                allNames = allNames + "\r\n" + allDetails.Address;
+
+            if (allDetails.HomePhone != "") 
+                allPhones = "H: " + allDetails.HomePhone + "\r\n";
+
+            if (allDetails.MobilePhone != "") 
+                allPhones = allPhones + "M: " + allDetails.MobilePhone + "\r\n";
+
+            if (allDetails.WorkPhone != "") 
+                allPhones = allPhones + "W: " + allDetails.WorkPhone + "\r\n";
+
+            if (allDetails.Email1 != "") 
+                allEmails = allEmails + allDetails.Email1 + "\r\n";
+
+            if (allDetails.Email2 != "") 
+                allEmails = allEmails + allDetails.Email2 + "\r\n";
+
+            if (allDetails.Email3 != "") 
+                allEmails = allEmails + allDetails.Email3 + "\r\n";
+
+            return (allNames + "\r\n" + "\r\n" + allPhones + "\r\n" + allEmails).
+                Replace("\r\n\r\n\r\n", "\r\n\r\n").Trim(new Char[] { ' ', '\r', '\n' });
+        }
+
+        public string GetContactInfoFromDetails(int index)
+        {
+            {
+                manager.Navigator.OpenHomePage();
+                InitOpenDetailsContact(0);
+                return driver.FindElement(By.Id("content")).Text;;
+            }
         }
 
         public ContactData GetContactInfoFromTable(int index)
@@ -228,59 +268,6 @@ namespace addressbook_web_tests
             };
         }
 
-        public ContactData GetContactInfoFromDetails()
-        {
-            manager.Navigator.OpenHomePage();
-            OpenDetailsContact(0);
-
-            // string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
-
-            //string allDetails = (driver.FindElement(By.XPath("//div[@id='content']")).Text).ToLower();
-            string allDetails = (driver.FindElement(By.XPath("//div[@id='content']")).Text).ToLower();
-
-            return new ContactData()
-            {
-                AllDetails = allDetails
-            };
-        }
-
-
-
-        //// блок основной информации о контакте
-        //string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
-        //string title = driver.FindElement(By.XPath("//div[@id='content']/i[1]")).Text;
-        //string nickname = driver.FindElement(By.XPath("//div[@id='content']/br[1]")).Text;
-        //string company = driver.FindElement(By.Name("company")).GetAttribute("value");
-
-
-        //string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-
-
-
-        //public ContactData GetContactInfoFromDetails()
-        //{
-        //    manager.Navigator.OpenHomePage();
-        //    OpenDetailsContact();
-
-        //    // блок основной информации о контакте
-        //    string allNames = driver.FindElement(By.XPath("//div[@id='content']/b[1]")).Text;
-        //    string title = driver.FindElement(By.XPath("//div[@id='content']/i[1]")).Text;
-        //    string nickname = driver.FindElement(By.XPath("//div[@id='content']/br[1]")).Text;
-        //    string company = driver.FindElement(By.Name("company")).GetAttribute("value");
-
-        //    string title = driver.FindElement(By.XPath("//div[@id='content']/i[1]")).Text;
-
-        //    string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-
-
-        //    return new ContactData();
-        //    //{
-        //    //    AllNames = allNames,
-        //    //    AllPhones = allPhones,
-        //    //    AllEmails = allEmails
-        //    //};
-
-        //}
 
 
         private List<ContactData> contactCache = null; //пустой кэш

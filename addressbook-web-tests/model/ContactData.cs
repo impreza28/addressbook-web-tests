@@ -76,7 +76,7 @@ namespace addressbook_web_tests
             {
                 if (allNames != null)
                 {
-                    return CleanUp(allNames);
+                    return allNames;
                 }
                 else
                 {
@@ -189,7 +189,7 @@ namespace addressbook_web_tests
             {
                 if (allDetails != null)
                 {
-                    return CleanUpDetails(allDetails);
+                    return allDetails;
                }
                else
                {
