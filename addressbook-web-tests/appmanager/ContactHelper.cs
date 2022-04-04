@@ -500,7 +500,7 @@ namespace addressbook_web_tests
             }
 
 
-            // запись в общую строку
+            // запись в общую строку 
             Details = allNames + address + allPhones + allEmails;
 
 
