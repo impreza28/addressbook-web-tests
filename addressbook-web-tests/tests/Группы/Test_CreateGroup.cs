@@ -55,12 +55,12 @@ namespace addressbook_web_tests
         {
 
             return (List<GroupData>) 
-                new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"groups.xml"));
+                new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"tests\Группы\groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"tests\Группы\groups.json"));
         }
 
         //public static IEnumerable<GroupData> GroupDataFromExcelFile()
@@ -85,7 +85,7 @@ namespace addressbook_web_tests
         //    return groups;
         //}
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        [Test, TestCaseSource("GroupDataFromXMLFile")]
 
 
         public void Test_CreateGroup(GroupData group)
