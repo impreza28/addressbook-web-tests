@@ -35,12 +35,12 @@ namespace addressbook_web_tests
         public static IEnumerable<ContactData> ContactDataFromXmlFile()
         {
             return (List<ContactData>)new XmlSerializer(typeof(List<ContactData>)).
-                Deserialize(new StreamReader(@"contacts.xml"));
+                Deserialize(new StreamReader(@"tests\Контакты\contacts.xml"));
         }
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactData>>(
-                File.ReadAllText(@"contacts.json"));
+                File.ReadAllText(@"tests\Контакты\contacts.json"));
         }
 
 
