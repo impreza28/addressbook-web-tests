@@ -125,6 +125,8 @@ namespace addressbook_web_tests
 
         public ContactData GetContactInfoFromEditForm(int index)
         {//получение данных контакта с формы контакта
+
+            string firstname, middlename, lastname, allNames;
             //manager.Navigator.OpenHomePage();
             InitContactModify(0); //инициируем редактирование контакта с index=0
 
@@ -157,6 +159,22 @@ namespace addressbook_web_tests
             //string homePhone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
             //string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
+            //if (firstName != null)
+            //    firstname = firstName;
+            //else firstname = "";
+
+            //if (middleName != null)
+            //    middlename = middleName;
+            //else middlename = "";
+
+            //if (lastName != null)
+            //    lastname = lastName;
+            //else lastname = "";
+
+            //allNames = firstname + middlename + lastname;
+        
+
+
             //переменные для allDetails
             //string allNames = firstName + middleName + lastName.Trim();
             //string allPhonesDetails = " "+ homePhone + "\r" + "\n" + " "+mobilePhone + "\r" + "\n" + " "+ workPhone + "\r" + "\n" + " "+fax + "\r" + "\n" + "\r" + "\n";
@@ -168,7 +186,6 @@ namespace addressbook_web_tests
             //string allDetails = (allNames +"\r"+"\n"+nickname + "\r" + "\n"+ title + "\r" + "\n" + company + "\r" + "\n" + address + "\r" + "\n" + "\r" + "\n" + allPhonesDetails + allEmails 
             //    + homepage + "\r" + "\n" + "\r" + "\n" + allBirthday + "\r" + "\n" + allAnniversary + "\r" + "\n" + "\r" + "\n" + address2 + "\r" + "\n" + "\r" + "\n" 
             //    + " "+homePhone2 + "\r" + "\n" + "\r" + "\n" + notes).ToLower();
-
 
             return new ContactData()
             {
@@ -211,41 +228,297 @@ namespace addressbook_web_tests
 
         public string GetContactStringFromDetails(ContactData allDetails)
         {
-            string allNames = allDetails.Firstname + allDetails.Middlename + (allDetails.Lastname).Trim();
+            string firstname, middlename, lastname, address, homephone, mobilephone, workphone, email1, email2, email3;
+
+
+            string allNames = null;
             string allPhones = null;
             string allEmails = null;
+            string Details;
 
-            if (allDetails.Address != null) 
-                allNames = allNames + "\r\n" + allDetails.Address;
+            firstname = allDetails.Firstname;
+            middlename = allDetails.Middlename;
+            lastname = allDetails.Lastname;
+            address = allDetails.Address;
 
-            if (allDetails.HomePhone != "") 
-                allPhones = "H: " + allDetails.HomePhone + "\r\n";
+            homephone = allDetails.HomePhone;
+            mobilephone = allDetails.MobilePhone;
+            workphone = allDetails.WorkPhone;
 
-            if (allDetails.MobilePhone != "") 
-                allPhones = allPhones + "M: " + allDetails.MobilePhone + "\r\n";
+            email1 = allDetails.Email1;
+            email2 = allDetails.Email2;
+            email3 = allDetails.Email3;
 
-            if (allDetails.WorkPhone != "") 
-                allPhones = allPhones + "W: " + allDetails.WorkPhone + "\r\n";
 
-            if (allDetails.Email1 != "") 
-                allEmails = allEmails + allDetails.Email1 + "\r\n";
+            //условия для написания строки ФИО - allNames
 
-            if (allDetails.Email2 != "") 
-                allEmails = allEmails + allDetails.Email2 + "\r\n";
+            // если заполнено всё ФИО
+            if (allDetails.Firstname != "" && allDetails.Middlename != "" && allDetails.Lastname != "")
+            {
+                allNames = firstname + " " + middlename + " " + lastname;
+            }
+            // если не заполнен Firstname
+            else if (allDetails.Firstname == "" && allDetails.Middlename != "" && allDetails.Lastname != "")
+            {
+                allNames = middlename + " " + lastname;
+            }
+            // если не заполнен Middlename
+            else if (allDetails.Firstname != "" && allDetails.Middlename == "" && allDetails.Lastname != "")
+            {
+                allNames = firstname + " " + lastname;
+            }
+            // если не заполнен Lastname
+            else if (allDetails.Firstname != "" && allDetails.Middlename != "" && allDetails.Lastname == "")
+            {
+                allNames = firstname + " " + middlename;
+            }
 
-            if (allDetails.Email3 != "") 
-                allEmails = allEmails + allDetails.Email3 + "\r\n";
+            // если не заполнен Firstname и Middlename
+            else if (allDetails.Firstname == "" && allDetails.Middlename == "" && allDetails.Lastname != "")
+            { allNames = lastname; }
 
-            return (allNames + "\r\n" + "\r\n" + allPhones + "\r\n" + allEmails).
-                Replace("\r\n\r\n\r\n", "\r\n\r\n").Trim(new Char[] { ' ', '\r', '\n' });
+            // если не заполнен Firstname и Lastname
+            else if (allDetails.Firstname == "" && allDetails.Middlename != "" && allDetails.Lastname == "")
+            { allNames = middlename; }
+
+            // если не заполнен Middlename и Lastname
+            else if (allDetails.Firstname != "" && allDetails.Middlename == "" && allDetails.Lastname == "")
+            { allNames = firstname; }
+
+            // если не заполнен ФИО
+            else if (allDetails.Firstname == "" && allDetails.Middlename == "" && allDetails.Lastname == "")
+            { allNames = ""; }
+
+
+
+            //условия для написания строки адреса
+
+            //если allNames и Address заполнен
+            if (allNames != "" && allDetails.Address != "")
+            {
+                address = "\r\n" + allDetails.Address;
+            }
+            //если Address не заполнен
+            else if (allNames != "" && allDetails.Address == "")
+            {
+                address = "";
+            }
+            //если allNames не заполнен
+            else if (allNames == "" && allDetails.Address != "")
+            {
+                address = allDetails.Address;
+            }
+
+            // запись в общую строку
+            Details = allNames + address;
+
+
+            //условия для написания строки телефонов - allPhones
+
+
+            // если заполнен ФИО/адрес и все телефоны
+            if (Details != "" && allDetails.HomePhone != "" && allDetails.MobilePhone != "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "\r\n\r\n" + "H:" + " " + homephone + "\r\n" + "M:" +" "+ mobilephone + "\r\n" + "W:" +" "+ workphone;
+            }
+
+            // если заполнен ФИО/адрес и не заполнен HomePhone
+            else if (Details != "" && allDetails.HomePhone == "" && allDetails.MobilePhone != "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "\r\n\r\n" + "M:" + " " + mobilephone + "\r\n" + "W:" + " " + workphone;
+            }
+            // если заполнен ФИО/адрес и не заполнен MobilePhone
+            else if (Details != "" && allDetails.HomePhone != "" && allDetails.MobilePhone == "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "\r\n\r\n" + "H:" + " " + homephone + "\r\n" + "W:" + " " + workphone;
+            }
+            // если заполнен ФИО/адрес и не заполнен WorkPhone
+            else if (Details != "" && allDetails.HomePhone != "" && allDetails.MobilePhone != "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "\r\n\r\n" + "H:" + " " + homephone + "\r\n" + "M:" + " " + mobilephone;
+            }
+            // если заполнен ФИО/адрес и не заполнен HomePhone и MobilePhone
+            else if (Details != "" && allDetails.HomePhone == "" && allDetails.MobilePhone == "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "\r\n\r\n" + "W:" + " " + workphone;
+            }
+            // если заполнен ФИО/адрес и не заполнен HomePhone и WorkPhone
+            else if (Details != "" && allDetails.HomePhone == "" && allDetails.MobilePhone != "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "\r\n\r\n" +  "M:" + " " + mobilephone;
+            }
+            // если заполнен ФИО/адрес и не заполнен HomePhone и WorkPhone
+            else if (Details != "" && allDetails.HomePhone != "" && allDetails.MobilePhone == "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "\r\n\r\n" + "H:" + " " + homephone;
+            }
+            // если заполнен ФИО/адрес и не заполнены телефоны
+            else if (Details != "" && allDetails.HomePhone == "" && allDetails.MobilePhone == "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "";
+            }
+
+
+
+            // если не заполнен ФИО/адрес и все телефоны
+            if (Details == "" && allDetails.HomePhone != "" && allDetails.MobilePhone != "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "H:" + " " + homephone + "\r\n" + "M:" + " " + mobilephone + "\r\n" + "W:" + " " + workphone;
+            }
+
+            // если не заполнен ФИО/адрес и не заполнен HomePhone
+            else if (Details == "" && allDetails.HomePhone == "" && allDetails.MobilePhone != "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "M:" + " " + mobilephone + "\r\n" + "W:" + " " + workphone;
+            }
+            // если не заполнен ФИО/адрес и не заполнен MobilePhone
+            else if (Details == "" && allDetails.HomePhone != "" && allDetails.MobilePhone == "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "H:" + " " + homephone + "\r\n" + "W:" + " " + workphone;
+            }
+            // если не заполнен ФИО/адрес и не заполнен WorkPhone
+            else if (Details == "" && allDetails.HomePhone != "" && allDetails.MobilePhone != "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "H:" + " " + homephone + "\r\n" + "M:" + " " + mobilephone;
+            }
+            // если не заполнен ФИО/адрес и не заполнен HomePhone и MobilePhone
+            else if (Details == "" && allDetails.HomePhone == "" && allDetails.MobilePhone == "" && allDetails.WorkPhone != "")
+            {
+                allPhones = "W:" + " " + workphone;
+            }
+            // если не заполнен ФИО/адрес и не заполнен HomePhone и WorkPhone
+            else if (Details == "" && allDetails.HomePhone == "" && allDetails.MobilePhone != "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "M:" + " " + mobilephone;
+            }
+            // если не заполнен ФИО/адрес и не заполнен HomePhone и WorkPhone
+            else if (Details == "" && allDetails.HomePhone != "" && allDetails.MobilePhone == "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "H:" + " " + homephone;
+            }
+            // если не заполнен ФИО/адрес и не заполнены телефоны
+            else if (Details == "" && allDetails.HomePhone == "" && allDetails.MobilePhone == "" && allDetails.WorkPhone == "")
+            {
+                allPhones = "";
+            }
+
+
+            // запись в общую строку
+            Details = allNames + address+ allPhones;
+
+
+
+
+
+            //условия для написания строки е-мейлов - allEmails
+
+
+            // если заполнен ФИО/адрес/телефон и все Emails
+            if (Details != "" && allDetails.Email1 != "" && allDetails.Email2 != "" && allDetails.Email3 != "")
+            {
+                allEmails = "\r\n\r\n" + email1 + "\r\n" + email2 + "\r\n"  + email3;
+            }
+
+            // если заполнен ФИО/адрес/телефон и не заполнен Email1
+            else if (Details != "" && allDetails.Email1 == "" && allDetails.Email2 != "" && allDetails.Email3 != "")
+            {
+                allEmails = "\r\n\r\n" + email2 + "\r\n" + email3;
+            }
+            // если заполнен ФИО/адрес/телефон и не заполнен Email2
+            else if (Details != "" && allDetails.Email1 != "" && allDetails.Email2 == "" && allDetails.Email3 != "")
+            {
+                allEmails = "\r\n\r\n" + email1 + "\r\n" + email3;
+            }
+            // если заполнен ФИО/адрес/телефон и не заполнен Email3
+            else if (Details != "" && allDetails.Email1 != "" && allDetails.Email2 != "" && allDetails.Email3 == "")
+            {
+                allEmails = "\r\n\r\n"  + email1 + "\r\n" + email2;
+            }
+            // если заполнен ФИО/адрес/телефон и не заполнен Email1 и Email2
+            else if (Details != "" && allDetails.Email1 == "" && allDetails.Email2 == "" && allDetails.Email3 != "")
+            {
+                allEmails = "\r\n\r\n"  + email3;
+            }
+            // если заполнен ФИО/адрес/телефон и не заполнен Email1 и Email3
+            else if (Details != "" && allDetails.Email1 == "" && allDetails.Email2 != "" && allDetails.Email3 == "")
+            {
+                allEmails = "\r\n\r\n"  + email2;
+            }
+            // если заполнен ФИО/адрес/телефон и не заполнен Email2 и Email3
+            else if (Details != "" && allDetails.Email1 != "" && allDetails.Email2 == "" && allDetails.Email3 == "")
+            {
+                allEmails = "\r\n\r\n"  + email1;
+            }
+            // если заполнен ФИО/адрес/телефон и не заполнены телефоны
+            else if (Details != "" && allDetails.Email1 == "" && allDetails.Email2 == "" && allDetails.Email3 == "")
+            {
+                allEmails = "";
+            }
+
+
+
+            // если не заполнен ФИО/адрес/телефон и все телефоны
+            if (Details == "" && allDetails.Email1 != "" && allDetails.Email2 != "" && allDetails.Email3 != "")
+            {
+                allEmails = email1 + "\r\n" + email2 + "\r\n" + email3;
+            }
+
+            // если не заполнен ФИО/адрес/телефон и не заполнен Email1
+            else if (Details == "" && allDetails.Email1 == "" && allDetails.Email2 != "" && allDetails.Email3 != "")
+            {
+                allEmails = email2 + "\r\n" + email3;
+            }
+            // если не заполнен ФИО/адрес/телефон и не заполнен Email2
+            else if (Details == "" && allDetails.Email1 != "" && allDetails.Email2 == "" && allDetails.Email3 != "")
+            {
+                allEmails = email1 + "\r\n" +email3;
+            }
+            // если не заполнен ФИО/адрес/телефон и не заполнен Email3
+            else if (Details == "" && allDetails.Email1 != "" && allDetails.Email2 != "" && allDetails.Email3 == "")
+            {
+                allEmails = email1 + "\r\n" + email2;
+            }
+            // если не заполнен ФИО/адрес/телефон и не заполнен Email1 и Email2
+            else if (Details == "" && allDetails.Email1 == "" && allDetails.Email2 == "" && allDetails.Email3 != "")
+            {
+                allEmails = email3;
+            }
+            // если не заполнен ФИО/адрес/телефон и не заполнен Email1 и Email3
+            else if (Details == "" && allDetails.Email1 == "" && allDetails.Email2 != "" && allDetails.Email3 == "")
+            {
+                allEmails = email2;
+            }
+            // если не заполнен ФИО/адрес/телефон и не заполнен Email2 и Email3
+            else if (Details == "" && allDetails.Email1 != "" && allDetails.Email2 == "" && allDetails.Email3 == "")
+            {
+                allEmails = email1;
+            }
+            // если не заполнен ФИО/адрес/телефон и не заполнены е-мейлы
+            else if (Details == "" && allDetails.Email1 == "" && allDetails.Email2 == "" && allDetails.Email3 == "")
+            {
+                allEmails = "";
+            }
+
+
+            // запись в общую строку 
+            Details = allNames + address + allPhones + allEmails;
+
+
+            return Details;
+
+
         }
+
+
 
         public string GetContactInfoFromDetails(int index)
         {
             {
+                string allDetails;
                 manager.Navigator.OpenHomePage();
                 InitOpenDetailsContact(0);
-                return driver.FindElement(By.Id("content")).Text;;
+                allDetails = driver.FindElement(By.Id("content")).Text;
+                return allDetails;
             }
         }
 
