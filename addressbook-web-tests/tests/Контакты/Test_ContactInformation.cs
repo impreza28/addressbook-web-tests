@@ -32,11 +32,11 @@ namespace addressbook_web_tests
         public void Test_ContactInfoDetails()
         {
             ContactData allInfoEditForm = app.Contacts.GetContactInfoFromEditForm(0);
-            string allDetails = app.Contacts.GetContactInfoFromDetails(0);
             string stringEditForm = app.Contacts.GetContactStringFromDetails(allInfoEditForm);
+            string allDetails = app.Contacts.GetContactInfoFromDetails(0);
 
 
-            Assert.AreEqual(allDetails, stringEditForm);
+            Assert.AreEqual(stringEditForm, allDetails);
         }
     }
 }
