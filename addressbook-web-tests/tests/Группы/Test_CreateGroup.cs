@@ -13,6 +13,7 @@ using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Linq;
 
 namespace addressbook_web_tests
 {
@@ -147,6 +148,28 @@ namespace addressbook_web_tests
            
             Assert.AreEqual(oldGroups.Count, newgroups.Count); //проверка списка, число групп не увеличилось
         }
+
+        [Test]
+        // тест-кейс создания группы с пустыми параметрами
+        public void Test_DBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            app.Groups.GetGroupList(); //список групп 
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+
+            start = DateTime.Now;
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                List<GroupData> fromDb = (from g in db.Groups select g).ToList();
+            }
+  
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+        }
+
 
     }
 }

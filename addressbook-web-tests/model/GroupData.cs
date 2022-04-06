@@ -10,9 +10,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using LinqToDB.Mapping;
 
 namespace addressbook_web_tests
 {
+    [Table(Name ="group_list")]
     public class GroupData 
         : IEquatable<GroupData>, //функция сравнения
         IComparable<GroupData>
@@ -32,13 +34,16 @@ namespace addressbook_web_tests
 
         public GroupData() {}
 
+        [Column(Name = "group_name")]
         public string Name { get; set; }
 
+        [Column(Name = "group_header")]
         public string Header {get; set;}
 
+        [Column(Name = "group_footer")]
         public string Footer { get; set; }
 
-
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
         public bool Equals(GroupData other) //реализация сравнения 
