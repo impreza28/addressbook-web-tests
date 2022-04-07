@@ -36,6 +36,14 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public GroupHelper Modify(GroupData group)
+        {// изменение группы
+            SelectGroup(group.Id);
+            InitGroupModify();
+            ModifyGroupForm(group);
+            SubmitUpdateGroup();
+            return this;
+        }
         public int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count();
