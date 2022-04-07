@@ -147,7 +147,7 @@ namespace addressbook_web_tests
 
         [Test]
         // тест-кейс создания группы с пустыми параметрами
-        public void Test_DBConnectivity()
+        public void Test_DBConnectivity1()
         {
             DateTime start = DateTime.Now;
             List<GroupData> fromUI = app.Groups.GetGroupList(); //список групп 
@@ -163,5 +163,14 @@ namespace addressbook_web_tests
         }
 
 
+        [Test]
+        // тест-кейс создания группы с пустыми параметрами
+        public void Test_DBConnectivity2()
+        {
+            foreach(ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+        }
     }
 }
