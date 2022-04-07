@@ -129,7 +129,7 @@ namespace addressbook_web_tests
         // тест-кейс создания группы с пустыми параметрами
         public void Test_BadNameCreateGroup()
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до создания новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до создания новой
 
             GroupData group = new GroupData("a'a");
             group.Header = "";
@@ -140,8 +140,8 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); //проверка списка (число групп не увеличилось)
 
 
-            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой
-           
+            List<GroupData> newgroups = GroupData.GetAll(); //список групп после создания новой
+
             Assert.AreEqual(oldGroups.Count, newgroups.Count); //проверка списка, число групп не увеличилось
         }
 
