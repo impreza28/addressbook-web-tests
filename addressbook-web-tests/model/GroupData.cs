@@ -46,6 +46,15 @@ namespace addressbook_web_tests
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups select g).ToList();
+            }
+        }
+
         public bool Equals(GroupData other) //реализация сравнения 
         { if (Object.ReferenceEquals(other, null))
             {
@@ -74,5 +83,7 @@ namespace addressbook_web_tests
             }
             return Name.CompareTo(other.Name);
         }
+
+
     }
 }

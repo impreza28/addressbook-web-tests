@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class ModifyGroup : AuthTestBase
+    public class ModifyGroup : GroupTestBase
     {
 
     [Test]

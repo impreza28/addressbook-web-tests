@@ -18,7 +18,7 @@ using System.Linq;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class CreateGroup: AuthTestBase
+    public class CreateGroup: GroupTestBase
     {
 
 
@@ -86,23 +86,19 @@ namespace addressbook_web_tests
         //    return groups;
         //}
 
-        [Test, TestCaseSource("GroupDataFromXMLFile")]
-
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
 
         public void Test_CreateGroup(GroupData group)
         {
-            //GroupData group = new GroupData("a");
-            //group.Header = "c";
-            //group.Footer = "b";
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до создания новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до создания новой
 
             app.Groups.CreateGroup(group);
-            app.Navigator.ReturnToGroupsPage();
+            app.Navigator.OpenGroupsPage();
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); //проверка списка (+1 группа)
             app.Navigator.OpenHomePage();
 
-            List<GroupData> newGroups = app.Groups.GetGroupList(); //список групп после создания новой
+            List<GroupData> newGroups = GroupData.GetAll(); //список групп после создания новой
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -154,17 +150,13 @@ namespace addressbook_web_tests
         public void Test_DBConnectivity()
         {
             DateTime start = DateTime.Now;
-            app.Groups.GetGroupList(); //список групп 
+            List<GroupData> fromUI = app.Groups.GetGroupList(); //список групп 
             DateTime end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
 
 
             start = DateTime.Now;
-            using (AddressBookDB db = new AddressBookDB())
-            {
-                List<GroupData> fromDb = (from g in db.Groups select g).ToList();
-            }
-  
+            List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
 

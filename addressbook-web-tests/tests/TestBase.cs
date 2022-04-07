@@ -15,6 +15,7 @@ namespace addressbook_web_tests
 {
     public class TestBase
     {
+        public static bool PERFORM_LONG_UI_CHECKS =true; //если true - проверять через БД, false - через UI
 
         protected ApplicationManager app;
 
