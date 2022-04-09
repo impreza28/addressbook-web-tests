@@ -13,11 +13,12 @@ using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Linq;
 
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class CreateGroup: AuthTestBase
+    public class CreateGroup: GroupTestBase
     {
 
 
@@ -85,27 +86,25 @@ namespace addressbook_web_tests
         //    return groups;
         //}
 
-        [Test, TestCaseSource("GroupDataFromXMLFile")]
-
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
 
         public void Test_CreateGroup(GroupData group)
         {
-            //GroupData group = new GroupData("a");
-            //group.Header = "c";
-            //group.Footer = "b";
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до создания новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до создания новой
 
             app.Groups.CreateGroup(group);
-            app.Navigator.ReturnToGroupsPage();
+            app.Navigator.OpenGroupsPage();
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount()); //проверка списка (+1 группа)
             app.Navigator.OpenHomePage();
 
-            List<GroupData> newGroups = app.Groups.GetGroupList(); //список групп после создания новой
+            List<GroupData> newGroups = GroupData.GetAll(); //список групп после создания новой
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups); //проверка списка
+
+
         }
 
         //[Test]
@@ -132,7 +131,7 @@ namespace addressbook_web_tests
         // тест-кейс создания группы с пустыми параметрами
         public void Test_BadNameCreateGroup()
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до создания новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до создания новой
 
             GroupData group = new GroupData("a'a");
             group.Header = "";
@@ -143,10 +142,39 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); //проверка списка (число групп не увеличилось)
 
 
-            List<GroupData> newgroups = app.Groups.GetGroupList(); //список групп после создания новой
-           
+            List<GroupData> newgroups = GroupData.GetAll(); //список групп после создания новой
+
             Assert.AreEqual(oldGroups.Count, newgroups.Count); //проверка списка, число групп не увеличилось
+
+
         }
 
+        [Test]
+        // тест-кейс создания группы с пустыми параметрами
+        public void Test_DBConnectivity1()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = app.Groups.GetGroupList(); //список групп 
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+        }
+
+
+        [Test]
+        // тест-кейс создания группы с пустыми параметрами
+        public void Test_DBConnectivity2()
+        {
+            foreach(ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+        }
     }
 }

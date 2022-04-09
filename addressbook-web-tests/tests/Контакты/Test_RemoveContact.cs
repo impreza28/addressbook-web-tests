@@ -18,7 +18,7 @@ namespace addressbook_web_tests
     [Test]
     public void Test_RemoveContact()
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();  // список   контактов
+            List<ContactData> oldContacts = ContactData.GetAll();  // список   контактов
 
             if (!app.Contacts.ContactIsFinded())
             {   // если ни одного контакта не найдено, то создать контакт
@@ -32,7 +32,7 @@ namespace addressbook_web_tests
             app.Navigator.OpenHomePage();
             Assert.AreEqual(oldContacts.Count-1, app.Contacts.GetContactCount()); //проверка списка (число контактов уменьшилось -1)
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(); //новый список контактов 
+            List<ContactData> newContacts = ContactData.GetAll(); //новый список контактов 
             oldContacts.RemoveAt(0);//удалить контакт с index=0 из старого списка
             Assert.AreEqual(oldContacts, newContacts); //проверка списка 
         }

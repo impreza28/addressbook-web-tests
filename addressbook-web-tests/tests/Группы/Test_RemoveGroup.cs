@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class RemoveGroup:AuthTestBase
+    public class RemoveGroup: GroupTestBase
     {
 
     [Test]
@@ -29,15 +29,14 @@ namespace addressbook_web_tests
                 app.Groups.CreateGroup(group);
             }
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();  // список   групп
+            List<GroupData> oldGroups = GroupData.GetAll();  // список   групп
+            GroupData toBeRemoved = oldGroups[0];
 
-            app.Groups.SelectCheckboxGroup(0) // выбрать группу с index=0
-                      .RemoveGroup(); //удаление группы
-            app.Navigator.ReturnToGroupsPage();
+            app.Groups.Remove(toBeRemoved); //удаление группы
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount()); //проверка списка (-1 группа)
 
-            List<GroupData> newGroups = app.Groups.GetGroupList(); //новый список групп 
-            GroupData toBeRemoved = oldGroups[0];
+            List<GroupData> newGroups = GroupData.GetAll(); //новый список групп 
+            
             oldGroups.RemoveAt(0); // удалить из старого списка группу с index=0
 
             Assert.AreEqual(oldGroups, newGroups); //сравнение списков

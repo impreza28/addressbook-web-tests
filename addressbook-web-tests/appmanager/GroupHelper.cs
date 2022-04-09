@@ -10,9 +10,9 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
-    public class GroupHelper: HelperBase
+    public class GroupHelper : HelperBase
     {
-        public GroupHelper(ApplicationManager manager): base(manager)
+        public GroupHelper(ApplicationManager manager) : base(manager)
         {
 
         }
@@ -36,6 +36,14 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public GroupHelper Modify(GroupData group)
+        {// изменение группы
+            SelectGroup(group.Id);
+            InitGroupModify();
+            ModifyGroupForm(group);
+            SubmitUpdateGroup();
+            return this;
+        }
         public int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count();
@@ -56,9 +64,24 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.OpenGroupsPage();
+            SelectGroup(group.Id);
+            InitRemoveGroup();
+            manager.Navigator.ReturnToGroupsPage();
+            return this;
+        }//удаление группы
+           
         public GroupHelper SelectCheckboxGroup(int index)
         {// нажатие на чекбокс любой группы
             driver.FindElement(By.XPath("(//input[@name='selected[]'])["+ (index+1) +"]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string id)
+        {// нажатие на чекбокс любой группы
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;
         }
 

@@ -10,9 +10,12 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using LinqToDB.Mapping;
 
 namespace addressbook_web_tests
+
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allNames;
@@ -37,9 +40,17 @@ namespace addressbook_web_tests
             Firstname = firstname;
         }
         //блок основной информации о контакте
+        [Column(Name = "id"),PrimaryKey]
+        public string Id { get; set; }
+
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
+
         public string Middlename { get; set; }
+
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
+
         public string Nickname { get; set; }
         public string Company { get; set; }
         public string Title { get; set; }
@@ -68,6 +79,16 @@ namespace addressbook_web_tests
         public string Address2 { get; set; }
         public string HomePhone2 { get; set; }
         public string Notes { get; set; }
+
+
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Contacts select g).ToList();
+            }
+        }
 
 
         public string AllNames
