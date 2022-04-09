@@ -30,14 +30,18 @@ namespace addressbook_web_tests
             List<ContactData> oldContacts = ContactData.GetAll(); //список текущих контактов 
 
             ContactData updContact = new ContactData("Test1", "Test1");
+
+            ContactData toBeUpdated = oldContacts[0];
+
+
             app.Contacts.SelectCheckboxContact(0)
                         .ModifyContact(updContact); //изменить контакт
             app.Navigator.ReturnToHomePage();
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount()); //проверка списка (число контактов не изменилось)
 
             List<ContactData> newContacts = ContactData.GetAll(); //список новых контактов 
-            oldContacts[0].Firstname = updContact.Firstname; //у элемента меняем имя в старом списке
-            oldContacts[0].Lastname = updContact.Lastname; //у элемента меняем имя в старом списке
+            toBeUpdated.Firstname = updContact.Firstname; //у элемента меняем имя в старом списке
+            toBeUpdated.Lastname = updContact.Lastname; //у элемента меняем имя в старом списке
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts); //сравнение списков
