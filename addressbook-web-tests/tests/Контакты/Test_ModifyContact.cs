@@ -27,7 +27,7 @@ namespace addressbook_web_tests
             }
 
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList(); //список текущих контактов 
+            List<ContactData> oldContacts = ContactData.GetAll(); //список текущих контактов 
 
             ContactData updContact = new ContactData("Test1", "Test1");
             app.Contacts.SelectCheckboxContact(0)
@@ -35,7 +35,7 @@ namespace addressbook_web_tests
             app.Navigator.ReturnToHomePage();
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount()); //проверка списка (число контактов не изменилось)
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(); //список новых контактов 
+            List<ContactData> newContacts = ContactData.GetAll(); //список новых контактов 
             oldContacts[0].Firstname = updContact.Firstname; //у элемента меняем имя в старом списке
             oldContacts[0].Lastname = updContact.Lastname; //у элемента меняем имя в старом списке
             oldContacts.Sort();

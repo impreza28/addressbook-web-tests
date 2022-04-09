@@ -103,6 +103,8 @@ namespace addressbook_web_tests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups); //проверка списка
+
+
         }
 
         //[Test]
@@ -143,6 +145,8 @@ namespace addressbook_web_tests
             List<GroupData> newgroups = GroupData.GetAll(); //список групп после создания новой
 
             Assert.AreEqual(oldGroups.Count, newgroups.Count); //проверка списка, число групп не увеличилось
+
+
         }
 
         [Test]

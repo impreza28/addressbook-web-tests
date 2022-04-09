@@ -48,7 +48,7 @@ namespace addressbook_web_tests
         public void Test_CreateContact(ContactData contact)
         {
             app.Navigator.OpenHomePage();
-            List<ContactData> oldContacts = app.Contacts.GetContactList(); //список контактов
+            List<ContactData> oldContacts = ContactData.GetAll(); //список контактов
 
             //ContactData contact = new ContactData("1", "C");
             //contact.Middlename = "2";
@@ -57,7 +57,7 @@ namespace addressbook_web_tests
             app.Navigator.ReturnToHomePage();
             Assert.AreEqual(oldContacts.Count+1, app.Contacts.GetContactCount()); //проверка списка (число контактов увеличилось +1)
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(); //список контактов после создания новой
+            List<ContactData> newContacts = ContactData.GetAll(); ; //список контактов после создания новой
 
             oldContacts.Add(contact); //добавить контакт в старый список в формате Lastname + " "+ Firstname
             oldContacts.Sort(); //сортировка старого списка

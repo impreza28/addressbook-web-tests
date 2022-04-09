@@ -77,7 +77,7 @@ namespace addressbook_web_tests
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount()); //проверка списка (кол-во в списке не изменилось)
 
             List<GroupData> newGroups = GroupData.GetAll(); //список групп после модификации
-            toBeUpdated.Name = updgroup.Name; //у элемента меняем имя в старом списке
+            toBeUpdated.Name = updgroup.Name; 
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups); //сравнение списков
